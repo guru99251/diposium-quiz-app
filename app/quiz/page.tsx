@@ -9,7 +9,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
-import { motion } from "framer-motion"
 
 export default function QuizEntryPage() {
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -60,35 +59,20 @@ export default function QuizEntryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent flex items-center justify-center p-4">
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-md"
-      >
-        <Card className="shadow-playful border-0 bg-white/95 backdrop-blur-sm">
-          <CardHeader className="text-center space-y-4">
-            <motion.div
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              <CardTitle className="text-3xl font-bold text-quiz-primary">🎯 퀴즈 참여하기</CardTitle>
-              <CardDescription className="text-lg text-gray-600 mt-2">
-                전화번호를 입력하고 재미있는 퀴즈를 시작해보세요!
-              </CardDescription>
-            </motion.div>
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-lg">
+        <Card className="brutalist-border brutalist-shadow bg-white">
+          <CardHeader className="text-center p-8">
+            <div className="w-24 h-24 bg-orange-500 flex items-center justify-center mx-auto mb-6 brutalist-border">
+              <span className="text-4xl">🎯</span>
+            </div>
+            <CardTitle className="brutalist-subtitle text-black uppercase mb-4">퀴즈 참여</CardTitle>
+            <CardDescription className="text-xl text-black font-bold">전화번호 입력 후 바로 시작</CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleStartQuiz} className="space-y-6">
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="space-y-2"
-              >
-                <Label htmlFor="phone" className="text-base font-medium text-gray-700">
+          <CardContent className="p-8">
+            <form onSubmit={handleStartQuiz} className="space-y-8">
+              <div className="space-y-4">
+                <Label htmlFor="phone" className="text-xl font-black text-black uppercase block">
                   전화번호
                 </Label>
                 <Input
@@ -97,48 +81,33 @@ export default function QuizEntryPage() {
                   placeholder="010-1234-5678"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="text-lg py-3 border-2 border-gray-200 focus:border-quiz-primary rounded-xl"
+                  className="text-xl py-4 px-4 brutalist-border bg-white text-black font-bold placeholder:text-gray-400 brutalist-focus"
                   required
                 />
-              </motion.div>
+              </div>
 
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-red-500 text-sm bg-red-50 p-3 rounded-lg border border-red-200"
-                >
-                  {error}
-                </motion.div>
-              )}
+              {error && <div className="bg-red-500 text-white p-4 brutalist-border font-bold text-lg">{error}</div>}
 
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-6 text-xl font-black uppercase bg-orange-500 hover:bg-orange-600 text-white brutalist-border brutalist-shadow brutalist-transition brutalist-click brutalist-focus border-0"
               >
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105"
-                >
-                  {isLoading ? "확인 중..." : "🚀 퀴즈 시작하기"}
-                </Button>
-              </motion.div>
+                {isLoading ? "확인 중..." : "퀴즈 시작"}
+              </Button>
             </form>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="mt-6 text-center text-sm text-gray-500 space-y-1"
-            >
-              <p>📱 전화번호는 중복 참여 방지용으로만 사용됩니다</p>
-              <p>🎮 총 5문제, 약 3분 소요</p>
-            </motion.div>
+            <div className="mt-8 space-y-4">
+              <div className="bg-blue-500 text-white p-4 brutalist-border">
+                <p className="font-bold text-lg">전화번호는 중복 참여 방지용으로만 사용</p>
+              </div>
+              <div className="bg-green-500 text-white p-4 brutalist-border">
+                <p className="font-bold text-lg">총 5문제, 약 3분 소요</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
     </div>
   )
 }

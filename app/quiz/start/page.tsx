@@ -4,9 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
 import { createClient } from "@/lib/supabase/client"
-import { motion, AnimatePresence } from "framer-motion"
 
 interface Question {
   id: string
@@ -126,12 +124,10 @@ export default function QuizStartPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent flex items-center justify-center">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-          className="w-16 h-16 border-4 border-white border-t-transparent rounded-full"
-        />
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="w-20 h-20 bg-black brutalist-border">
+          <div className="w-full h-full bg-orange-500 animate-pulse"></div>
+        </div>
       </div>
     )
   }
@@ -140,72 +136,75 @@ export default function QuizStartPage() {
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent p-4">
-      <div className="max-w-2xl mx-auto pt-8">
-        {/* Progress Bar */}
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-white font-medium">
+    <div className="min-h-screen bg-white p-4">
+      <div className="max-w-3xl mx-auto pt-8">
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <div className="bg-black text-white px-4 py-2 brutalist-border font-black text-xl uppercase">
               문제 {currentQuestionIndex + 1} / {questions.length}
-            </span>
-            <span className="text-white font-medium">{Math.round(progress)}%</span>
+            </div>
+            <div className="bg-orange-500 text-white px-4 py-2 brutalist-border font-black text-xl">
+              {Math.round(progress)}%
+            </div>
           </div>
-          <Progress value={progress} className="h-3 bg-white/20" />
-        </motion.div>
+          <div className="h-6 bg-gray-200 brutalist-border">
+            <div className="h-full bg-orange-500 brutalist-transition" style={{ width: `${progress}%` }}></div>
+          </div>
+        </div>
 
-        {/* Question Card */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentQuestionIndex}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card className="shadow-playful border-0 bg-white/95 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-xl font-bold text-gray-800">{currentQuestion.question}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {[
-                  { key: "A", text: currentQuestion.option_a },
-                  { key: "B", text: currentQuestion.option_b },
-                  { key: "C", text: currentQuestion.option_c },
-                  { key: "D", text: currentQuestion.option_d },
-                ].map((option) => (
-                  <motion.button
-                    key={option.key}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleAnswerSelect(option.key)}
-                    className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
-                      selectedAnswer === option.key
-                        ? "border-quiz-primary bg-quiz-primary/10 shadow-playful"
-                        : "border-gray-200 hover:border-quiz-secondary bg-white hover:bg-quiz-secondary/5"
+        <Card className="brutalist-border brutalist-shadow bg-white mb-8">
+          <CardHeader className="p-8">
+            <div className="w-16 h-16 bg-blue-500 flex items-center justify-center mb-6 brutalist-border">
+              <span className="text-white font-black text-2xl">{currentQuestionIndex + 1}</span>
+            </div>
+            <CardTitle className="text-2xl font-black text-black uppercase leading-tight">
+              {currentQuestion.question}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-8 pt-0 space-y-4">
+            {[
+              { key: "A", text: currentQuestion.option_a, color: "bg-red-500" },
+              { key: "B", text: currentQuestion.option_b, color: "bg-green-500" },
+              { key: "C", text: currentQuestion.option_c, color: "bg-blue-500" },
+              { key: "D", text: currentQuestion.option_d, color: "bg-purple-500" },
+            ].map((option) => (
+              <button
+                key={option.key}
+                onClick={() => handleAnswerSelect(option.key)}
+                className={`w-full p-6 text-left brutalist-border brutalist-transition brutalist-click brutalist-focus ${
+                  selectedAnswer === option.key
+                    ? `${option.color} text-white brutalist-shadow`
+                    : "bg-white text-black hover:bg-gray-100"
+                }`}
+              >
+                <div className="flex items-center">
+                  <div
+                    className={`w-12 h-12 flex items-center justify-center brutalist-border mr-4 font-black text-xl ${
+                      selectedAnswer === option.key ? "bg-white text-black" : `${option.color} text-white`
                     }`}
                   >
-                    <span className="font-semibold text-quiz-primary mr-3">{option.key}.</span>
-                    <span className="text-gray-700">{option.text}</span>
-                  </motion.button>
-                ))}
+                    {option.key}
+                  </div>
+                  <span className="text-lg font-bold">{option.text}</span>
+                </div>
+              </button>
+            ))}
 
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: selectedAnswer ? 1 : 0.5 }} className="pt-4">
-                  <Button
-                    onClick={handleNextQuestion}
-                    disabled={!selectedAnswer || isSubmitting}
-                    className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  >
-                    {isSubmitting
-                      ? "제출 중..."
-                      : currentQuestionIndex === questions.length - 1
-                        ? "🎯 퀴즈 완료하기"
-                        : "➡️ 다음 문제"}
-                  </Button>
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
+            <div className="pt-6">
+              <Button
+                onClick={handleNextQuestion}
+                disabled={!selectedAnswer || isSubmitting}
+                className="w-full py-6 text-xl font-black uppercase bg-orange-500 hover:bg-orange-600 text-white brutalist-border brutalist-shadow brutalist-transition brutalist-click brutalist-focus border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting
+                  ? "제출 중..."
+                  : currentQuestionIndex === questions.length - 1
+                    ? "퀴즈 완료"
+                    : "다음 문제"}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
