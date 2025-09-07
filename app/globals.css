@@ -4,70 +4,70 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Neo-Brutalist color palette - harsh contrasts and solid colors */
-  --background: oklch(1 0 0); /* Pure white */
-  --foreground: oklch(0 0 0); /* Pure black */
-  --card: oklch(1 0 0); /* White cards */
-  --card-foreground: oklch(0 0 0); /* Black text */
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0 0 0);
-  --primary: oklch(0 0 0); /* Black primary */
-  --primary-foreground: oklch(1 0 0); /* White text on black */
-  --secondary: oklch(0.9 0 0); /* Light gray */
-  --secondary-foreground: oklch(0 0 0);
-  --muted: oklch(0.95 0 0);
-  --muted-foreground: oklch(0.4 0 0);
-  --accent: oklch(0.6 0.25 30); /* Bold orange accent */
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.5 0.3 0); /* Bold red */
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0 0 0); /* Black borders */
-  --input: oklch(1 0 0);
-  --ring: oklch(0 0 0);
-  --chart-1: oklch(0.6 0.25 30); /* Orange */
-  --chart-2: oklch(0.5 0.3 120); /* Green */
-  --chart-3: oklch(0.5 0.3 240); /* Blue */
-  --chart-4: oklch(0.5 0.3 300); /* Purple */
-  --chart-5: oklch(0.5 0.3 0); /* Red */
-  --radius: 0rem; /* No rounded corners for brutalist aesthetic */
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0 0 0);
-  --sidebar-primary: oklch(0 0 0);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.9 0 0);
-  --sidebar-accent-foreground: oklch(0 0 0);
-  --sidebar-border: oklch(0 0 0);
-  --sidebar-ring: oklch(0 0 0);
+  /* Updated to modern minimal color palette with emerald primary */
+  --background: #ffffff; /* Clean white background */
+  --foreground: #374151; /* Soft dark gray text */
+  --card: #f8fafc; /* Very light gray cards */
+  --card-foreground: #475569; /* Medium gray card text */
+  --popover: #ffffff; /* White popover background */
+  --popover-foreground: #374151; /* Dark gray popover text */
+  --primary: #059669; /* Emerald primary color */
+  --primary-foreground: #ffffff; /* White text on primary */
+  --secondary: #f1f5f9; /* Light gray secondary */
+  --secondary-foreground: #374151; /* Dark gray secondary text */
+  --muted: #f0fdf4; /* Very light green muted background */
+  --muted-foreground: #6b7280; /* Medium gray muted text */
+  --accent: #10b981; /* Bright emerald accent */
+  --accent-foreground: #ffffff; /* White accent text */
+  --destructive: #ef4444; /* Modern red for destructive actions */
+  --destructive-foreground: #ffffff; /* White destructive text */
+  --border: #e2e8f0; /* Light gray borders */
+  --input: #f8fafc; /* Light input background */
+  --ring: #059669; /* Emerald focus ring */
+  --chart-1: #10b981; /* Emerald chart color */
+  --chart-2: #3b82f6; /* Blue chart color */
+  --chart-3: #8b5cf6; /* Purple chart color */
+  --chart-4: #f59e0b; /* Amber chart color */
+  --chart-5: #ef4444; /* Red chart color */
+  --radius: 0.75rem; /* Rounded corners for modern look */
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #374151;
+  --sidebar-primary: #059669;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #10b981;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #059669;
 }
 
 .dark {
-  --background: oklch(0 0 0);
-  --foreground: oklch(1 0 0);
-  --card: oklch(0 0 0);
-  --card-foreground: oklch(1 0 0);
-  --popover: oklch(0 0 0);
-  --popover-foreground: oklch(1 0 0);
-  --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0.1 0 0);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.1 0 0);
-  --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.6 0.25 30);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.5 0.3 0);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(1 0 0);
-  --input: oklch(0.1 0 0);
-  --ring: oklch(1 0 0);
-  --sidebar: oklch(0 0 0);
-  --sidebar-foreground: oklch(1 0 0);
-  --sidebar-primary: oklch(1 0 0);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.1 0 0);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(1 0 0);
-  --sidebar-ring: oklch(1 0 0);
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+  --popover: #1e293b;
+  --popover-foreground: #f1f5f9;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #334155;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #10b981;
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: #334155;
+  --sidebar-ring: #10b981;
 }
 
 @theme inline {
@@ -97,10 +97,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: 0rem;
-  --radius-md: 0rem;
-  --radius-lg: 0rem;
-  --radius-xl: 0rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -109,13 +109,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Neo-Brutalist specific color tokens */
-  --color-brutalist-orange: oklch(0.6 0.25 30);
-  --color-brutalist-green: oklch(0.5 0.3 120);
-  --color-brutalist-blue: oklch(0.5 0.3 240);
-  --color-brutalist-purple: oklch(0.5 0.3 300);
-  --color-brutalist-red: oklch(0.5 0.3 0);
 }
 
 @layer base {
@@ -124,60 +117,59 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    /* Remove gradients, use solid white background */
-    background: white !important;
+    @apply bg-background text-foreground font-sans;
+    /* Clean gradient background for modern feel */
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   }
 
-  /* Neo-Brutalist utility classes */
-  .brutalist-shadow {
-    box-shadow: 8px 8px 0px 0px black;
+  /* Modern minimal utility classes replacing brutalist styles */
+  .modern-shadow {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
-  .brutalist-shadow-hover {
-    box-shadow: 12px 12px 0px 0px black;
+  .modern-shadow-lg {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   }
 
-  .brutalist-border {
-    border: 4px solid black;
+  .modern-shadow-hover {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   }
 
-  .brutalist-border-thick {
-    border: 6px solid black;
+  .modern-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Harsh transition effects for Neo-Brutalist aesthetic */
-  .brutalist-transition {
-    transition: all 0.1s ease-out;
+  .modern-hover:hover {
+    transform: translateY(-2px);
   }
 
-  .brutalist-hover:hover {
-    transform: translate(-4px, -4px);
+  /* Clean modern typography */
+  .modern-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
   }
 
-  /* Typography for oversized headers */
-  .brutalist-title {
-    font-weight: 900;
-    font-size: clamp(2rem, 8vw, 4rem);
-    line-height: 0.9;
-    letter-spacing: -0.02em;
+  .modern-subtitle {
+    font-weight: 500;
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--muted-foreground);
   }
 
-  .brutalist-subtitle {
-    font-weight: 800;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    line-height: 1.1;
+  /* Smooth modern interactions */
+  .modern-button:hover {
+    transform: translateY(-1px);
   }
 
-  /* Remove playful animations, add abrupt state changes */
-  .brutalist-click:active {
-    transform: translate(4px, 4px);
-    box-shadow: 4px 4px 0px 0px black;
+  .modern-button:active {
+    transform: translateY(0);
   }
 
-  /* Focus indicators with thick borders */
-  .brutalist-focus:focus {
-    outline: 4px solid black;
+  /* Clean focus states */
+  .modern-focus:focus {
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 }
