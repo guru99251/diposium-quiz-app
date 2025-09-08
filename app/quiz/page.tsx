@@ -46,7 +46,7 @@ export default function QuizEntryPage() {
           .from("quiz_attempts")
           .select("id")
           .eq("phone_number", phoneNumber)
-          .eq("total_questions", 5)
+          .eq("mode", "random5")
           .limit(1)
 
         if (tried5 && tried5.length > 0) {
@@ -57,9 +57,9 @@ export default function QuizEntryPage() {
       } else {
         const { data: triedUnlimited } = await supabase
           .from("quiz_attempts")
-          .select("id, total_questions")
+          .select("id")
           .eq("phone_number", phoneNumber)
-          .neq("total_questions", 5)
+          .eq("mode", "unlimited")
           .limit(1)
 
         if (triedUnlimited && triedUnlimited.length > 0) {
@@ -95,7 +95,7 @@ export default function QuizEntryPage() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <CardTitle className="text-3xl font-bold text-quiz-primary">이제 퀴즈 참여하기</CardTitle>
+              <CardTitle className="text-3xl font-bold text-quiz-primary">퀴즈 참여하기</CardTitle>
               <CardDescription className="text-lg text-gray-600 mt-2">
                 전화번호 입력 후 모드를 선택하세요.
               </CardDescription>
@@ -258,8 +258,9 @@ export default function QuizEntryPage() {
               transition={{ delay: 0.6, duration: 0.5 }}
               className="mt-6 text-center text-sm text-gray-500 space-y-1"
             >
-              <p>🚀입력하신 전화번호는 중복 참여 방지를 위해서만 사용됩니다!</p>
-              <p>🚀퀴즈는 모드별로 1회씩 참여할 수 있어요.</p>
+              <em>🚀 퀴즈는 모드별로 <strong>1회씩</strong> 참여할 수 있어요!</em>
+              <br></br>
+              <em>🚀 전화번호는 중복 참여 방지를 위해서만 사용됩니다.</em>
             </motion.div>
           </CardContent>
         </Card>

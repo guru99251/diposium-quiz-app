@@ -30,7 +30,6 @@ export default function QuizStartPage() {
   const [phoneNumber, setPhoneNumber] = useState<string>("")
   const [mode, setMode] = useState<Mode>("random5")
   const [streak, setStreak] = useState<number>(0)
-  const [usedIds, setUsedIds] = useState<Set<string>>(new Set())
 
   const router = useRouter()
   const params = useSearchParams()
@@ -52,7 +51,8 @@ export default function QuizStartPage() {
       const supabase = createClient()
       const { data, error } = await supabase.from("questions").select("*")
       if (error) throw error
-      const shuffled = (data || []).sort(() => 0.5 - Math.random())
+      // ensure no duplicates by shuffling and slicing
+      const shuffled = (data || []).slice().sort(() => 0.5 - Math.random())
       if (m === "random5") {
         setPool(shuffled.slice(0, 5))
       } else {
@@ -98,13 +98,8 @@ export default function QuizStartPage() {
     }
 
     setStreak((s) => s + 1)
-    const nextUsed = new Set(usedIds)
-    nextUsed.add(currentQuestion.id)
-    setUsedIds(nextUsed)
-
-    // Advance to next unused question in pool
-    let nextIdx = currentIndex + 1
-    while (nextIdx < pool.length && nextUsed.has(pool[nextIdx].id)) nextIdx++
+    // Advance sequentially; pool has unique items
+    const nextIdx = currentIndex + 1
     if (nextIdx >= pool.length) {
       // Ran out of questions: end as perfect streak
       submitUnlimited(nextCorrectList)
@@ -132,6 +127,7 @@ export default function QuizStartPage() {
         score,
         total_questions: pool.length,
         questions_answered: questionsAnswered,
+        mode: "random5",
       })
       if (error) throw error
 
@@ -170,6 +166,7 @@ export default function QuizStartPage() {
         score: streakScore,
         total_questions: streakScore,
         questions_answered: answered,
+        mode: "unlimited",
       })
       if (error) throw error
 
@@ -281,4 +278,3 @@ export default function QuizStartPage() {
     </div>
   )
 }
-

@@ -51,13 +51,13 @@ export default function AdminDashboard() {
         .lt("completed_at", `${today}T23:59:59.999Z`)
 
       const totalAttempts = attempts?.length || 0
-      const fiveAttempts = (attempts || []).filter((a) => a.total_questions === 5)
+      const fiveAttempts = (attempts || []).filter((a) => (a as any).mode === "random5")
       const averageScore =
         fiveAttempts.length > 0
           ? Math.round(((fiveAttempts.reduce((sum, a) => sum + a.score, 0) || 0) / fiveAttempts.length) * 10) / 10
           : 0
 
-      const unlimited = (attempts || []).filter((a) => a.total_questions !== 5)
+      const unlimited = (attempts || []).filter((a) => (a as any).mode === "unlimited")
       const unlimitedTop = unlimited
         .sort((a, b) => b.score - a.score)
         .slice(0, 5)
