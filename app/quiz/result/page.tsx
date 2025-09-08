@@ -160,7 +160,7 @@ export default function QuizResultPage() {
 
         {/* Action Buttons */}
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8, duration: 0.5 }} className="flex gap-4">
-          <Button onClick={() => router.push("/")} className="flex-1 py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105">
+          <Button onClick={() => router.push("/quiz")} className="flex-1 py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105">
             홈으로 돌아가기
           </Button>
         </motion.div>
