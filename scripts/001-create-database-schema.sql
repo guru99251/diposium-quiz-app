@@ -25,6 +25,18 @@ CREATE TABLE IF NOT EXISTS questions (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Prevent duplicate questions within the same type
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM   pg_constraint
+    WHERE  conname = 'unique_type_question'
+  ) THEN
+    ALTER TABLE questions ADD CONSTRAINT unique_type_question UNIQUE (type_id, question);
+  END IF;
+END$$;
+
 -- Quiz attempts table (퀴즈 시도 기록)
 CREATE TABLE IF NOT EXISTS quiz_attempts (
   id SERIAL PRIMARY KEY,
