@@ -117,6 +117,11 @@
 }
 
 @layer base {
+  html, body {
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -176,4 +181,26 @@
       opacity: 0;
     }
   }
+
+  /* Fluid, accessible typography for all screens */
+  h1 { font-size: clamp(1.875rem, 3vw + 1rem, 3.5rem); line-height: 1.15; }
+  h2 { font-size: clamp(1.5rem, 2.5vw + 0.75rem, 2.5rem); line-height: 1.2; }
+  h3 { font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem); line-height: 1.3; }
+  h4 { font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem); line-height: 1.35; }
+  p, li { line-height: 1.6; }
+
+  /* Prevent long text from breaking layouts on small screens */
+  :where(p, h1, h2, h3, h4, h5, h6, .card, .prose) { overflow-wrap: anywhere; }
+
+  /* Media should scale to fit */
+  img, video, canvas, svg { max-width: 100%; height: auto; }
+
+  /* Add responsive container paddings without changing Tailwind config */
+  .container { padding-left: clamp(16px, 4vw, 24px); padding-right: clamp(16px, 4vw, 24px); }
+
+  /* Safe area utilities for iOS devices */
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-left { padding-left: env(safe-area-inset-left); }
+  .safe-right { padding-right: env(safe-area-inset-right); }
 }
