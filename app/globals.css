@@ -4,81 +4,126 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette for playful edutainment theme */
-  --background: oklch(1 0 0); /* Pure white background */
-  --foreground: oklch(0.35 0 0); /* Dark gray for text */
-  --card: oklch(0.98 0 0); /* Light gray for cards */
-  --card-foreground: oklch(0.35 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.35 0 0);
-  --primary: oklch(0.55 0.15 200); /* Bright cyan for primary elements */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.75 0.12 85); /* Warm amber for highlights */
-  --secondary-foreground: oklch(0.35 0 0);
-  --muted: oklch(0.98 0 0);
-  --muted-foreground: oklch(0.35 0 0);
-  --accent: oklch(0.65 0.2 330); /* Playful pink for animations */
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0 0);
-  --input: oklch(1 0 0);
-  --ring: oklch(0.55 0.15 200);
-  --chart-1: oklch(0.75 0.12 85); /* Amber */
-  --chart-2: oklch(0.65 0.2 330); /* Pink */
-  --chart-3: oklch(0.55 0.15 200); /* Cyan */
-  --chart-4: oklch(0.6 0.15 240); /* Blue */
-  --chart-5: oklch(0.7 0.15 140); /* Green */
-  --radius: 0.75rem; /* Increased radius for playful rounded corners */
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* ——— Lux-Modern palette (OKLCH) ——— */
+  --background: oklch(0.985 0.01 95);         /* soft warm white */
+  --foreground: oklch(0.22 0 0);              /* deep charcoal */
+
+  --card: oklch(0.98 0 0);                     /* near-white card */
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(0.99 0 0);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.62 0.18 265);            /* cobalt/iris */
+  --primary-foreground: oklch(0.99 0 0);
+
+  --secondary: oklch(0.72 0.10 310);          /* muted iris */
+  --secondary-foreground: var(--foreground);
+
+  --muted: oklch(0.95 0.02 95);               /* soft gray */
+  --muted-foreground: oklch(0.46 0.02 95);    /* medium gray */
+
+  --accent: oklch(0.72 0.12 155);             /* refined emerald */
+  --accent-foreground: oklch(0.99 0 0);
+
+  --destructive: oklch(0.58 0.20 28);         /* modern vermilion */
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --border: oklch(0.90 0.01 95);
+  --input: oklch(0.98 0 0);
+  --ring: oklch(0.68 0.18 265);               /* primary, slightly deeper */
+
+  /* Chart palette — balanced, non-toyish */
+  --chart-1: oklch(0.68 0.18 265); /* cobalt */
+  --chart-2: oklch(0.70 0.12 305); /* iris */
+  --chart-3: oklch(0.70 0.12 155); /* emerald */
+  --chart-4: oklch(0.76 0.10 95);  /* warm gray */
+  --chart-5: oklch(0.64 0.16 220); /* slate blue */
+
+  /* Radii tuned for premium softness */
+  --radius: 0.75rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  /* Sidebar refined neutrals */
+  --sidebar: oklch(0.985 0.01 95);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: oklch(0.62 0.18 265);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.96 0.01 95);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: oklch(0.90 0.01 95);
+  --sidebar-ring: oklch(0.68 0.18 265);
+
+  /* Subtle elevation tokens (glass) */
+  --surface: oklch(0.99 0 0 / 0.6);
+  --elevated: oklch(0.99 0 0 / 0.8);
+  --overlay: oklch(0.18 0 0 / 0.35);
+
+  /* Quiz-specific tokens aligned to new palette */
+  --color-quiz-primary: var(--primary);
+  --color-quiz-secondary: var(--secondary);
+  --color-quiz-accent: var(--accent);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.55 0.15 200);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.65 0.2 330);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Deep slate with a hint of blue for luxury feel */
+  --background: oklch(0.17 0.02 255);
+  --foreground: oklch(0.96 0.01 95);
+
+  --card: oklch(0.19 0.02 255 / 0.6);
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(0.20 0.02 255 / 0.7);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.75 0.20 265);          /* brighter for dark bg */
+  --primary-foreground: oklch(0.14 0.02 255);
+
+  --secondary: oklch(0.72 0.14 305);
+  --secondary-foreground: oklch(0.14 0.02 255);
+
+  --muted: oklch(0.28 0.02 255);
+  --muted-foreground: oklch(0.74 0.03 95);
+
+  --accent: oklch(0.74 0.14 155);
+  --accent-foreground: oklch(0.14 0.02 255);
+
+  --destructive: oklch(0.66 0.22 28);
+  --destructive-foreground: oklch(0.14 0.02 255);
+
+  --border: oklch(0.28 0.02 255);
+  --input: oklch(0.24 0.02 255);
+  --ring: oklch(0.80 0.20 265);
+
+  --sidebar: oklch(0.15 0.02 255);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: oklch(0.14 0.02 255);
+  --sidebar-accent: oklch(0.22 0.02 255);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: oklch(0.24 0.02 255);
+  --sidebar-ring: var(--ring);
+
+  --surface: oklch(0.16 0.02 255 / 0.55);
+  --elevated: oklch(0.18 0.02 255 / 0.7);
+  --overlay: oklch(0.14 0.02 255 / 0.45);
 }
 
+/* Map tokens to Tailwind theme vars */
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -89,18 +134,22 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -110,10 +159,9 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Added quiz-specific color tokens properly integrated with Tailwind */
-  --color-quiz-primary: oklch(0.55 0.15 200); /* Bright cyan */
-  --color-quiz-secondary: oklch(0.75 0.12 85); /* Warm amber */
-  --color-quiz-accent: oklch(0.65 0.2 330); /* Playful pink */
+  --color-quiz-primary: var(--color-quiz-primary);
+  --color-quiz-secondary: var(--color-quiz-secondary);
+  --color-quiz-accent: var(--color-quiz-accent);
 }
 
 @layer base {
@@ -121,86 +169,102 @@
     height: 100%;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    color-scheme: light dark;
   }
+
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/30;
   }
+
   body {
-    @apply text-foreground;
-    /* Override body background for quiz app pages */
-    background: linear-gradient(135deg, #0ea5e9, #f59e0b, #ec4899) !important;
+    @apply text-foreground bg-background;
+    /* Subtle premium gradient using tokens (replaces saturated rainbow) */
+    background:
+      radial-gradient(1200px 600px at 80% -10%,
+        oklch(0.95 0.02 265 / 0.35), transparent 60%),
+      radial-gradient(1000px 500px at -10% 20%,
+        oklch(0.96 0.02 155 / 0.25), transparent 55%),
+      linear-gradient(180deg, oklch(1 0 0), oklch(0.98 0 0)) !important;
   }
 
-  /* Override body background specifically for homepage */
+  /* Homepage variant: layered gradients with brand tokens */
   body:has([data-quiz-homepage]) {
-    background: linear-gradient(135deg, #0ea5e9, #f59e0b, #ec4899) !important;
+    background:
+      /* subtle vignette to avoid empty white feel */
+      radial-gradient(1200px 800px at 50% 50%,
+        transparent 42%, oklch(0 0 0 / 0.045) 100%),
+      /* center wash to fill behind cards */
+      radial-gradient(800px 600px at 50% 45%,
+        color-mix(in oklch, var(--color-quiz-secondary) 80%, oklch(1 0 0)), transparent 70%),
+      /* top-left glow */
+      radial-gradient(700px 400px at 12% 8%,
+        color-mix(in oklch, var(--color-quiz-primary) 26%, transparent), transparent 65%),
+      /* top-right glow */
+      radial-gradient(650px 360px at 88% 12%,
+        color-mix(in oklch, var(--color-quiz-secondary) 24%, transparent), transparent 65%),
+      /* bottom glow */
+      radial-gradient(900px 500px at 70% 110%,
+        color-mix(in oklch, var(--color-quiz-accent) 24%, transparent), transparent 70%),
+      /* soft base sweep */
+      linear-gradient(135deg,
+        color-mix(in oklch, var(--color-quiz-primary) 100%, oklch(1 0 0)),
+        color-mix(in oklch, var(--color-quiz-secondary) 100%, oklch(0.99 0 0)),
+        color-mix(in oklch, var(--color-quiz-accent) 100%, oklch(1 0 0))
+      ) !important;
   }
 
-  /* Added playful shadow utilities for quiz components */
-  .shadow-playful {
-    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  }
-
-  .shadow-playful-hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Added playful animation classes for quiz interactions */
-  .bounce-in {
-    animation: bounceIn 0.6s ease-out;
-  }
-
-  .confetti-burst {
-    animation: confettiBurst 1s ease-out;
-  }
-
-  @keyframes bounceIn {
-    0% {
-      transform: scale(0.3);
-      opacity: 0;
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    70% {
-      transform: scale(0.9);
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
+  @media (prefers-color-scheme: dark) {
+    body {
+      background:
+        radial-gradient(1000px 500px at 85% -10%,
+          oklch(0.30 0.03 265 / 0.35), transparent 60%),
+        radial-gradient(900px 450px at -10% 30%,
+          oklch(0.28 0.03 155 / 0.28), transparent 55%),
+        linear-gradient(180deg, oklch(0.16 0.02 255), oklch(0.14 0.02 255)) !important;
     }
   }
-
-  @keyframes confettiBurst {
-    0% {
-      transform: scale(0) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1) rotate(360deg);
-      opacity: 0;
-    }
-  }
-
-  /* Fluid, accessible typography for all screens */
-  h1 { font-size: clamp(1.875rem, 3vw + 1rem, 3.5rem); line-height: 1.15; }
-  h2 { font-size: clamp(1.5rem, 2.5vw + 0.75rem, 2.5rem); line-height: 1.2; }
-  h3 { font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem); line-height: 1.3; }
-  h4 { font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem); line-height: 1.35; }
-  p, li { line-height: 1.6; }
-
-  /* Prevent long text from breaking layouts on small screens */
-  :where(p, h1, h2, h3, h4, h5, h6, .card, .prose) { overflow-wrap: anywhere; }
-
-  /* Media should scale to fit */
-  img, video, canvas, svg { max-width: 100%; height: auto; }
-
-  /* Add responsive container paddings without changing Tailwind config */
-  .container { padding-left: clamp(16px, 4vw, 24px); padding-right: clamp(16px, 4vw, 24px); }
-
-  /* Safe area utilities for iOS devices */
-  .safe-top { padding-top: env(safe-area-inset-top); }
-  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
-  .safe-left { padding-left: env(safe-area-inset-left); }
-  .safe-right { padding-right: env(safe-area-inset-right); }
 }
+
+/* ——— Components: subtle glass & motion-ready ——— */
+@layer components {
+  .glass {
+    background: var(--surface);
+    backdrop-filter: saturate(120%) blur(10px);
+    -webkit-backdrop-filter: saturate(120%) blur(10px);
+    box-shadow:
+      0 1px 0 0 oklch(1 0 0 / 0.6) inset,
+      0 10px 30px -10px oklch(0 0 0 / 0.25);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .elevated {
+    background: var(--elevated);
+    box-shadow:
+      0 2px 0 0 oklch(1 0 0 / 0.35) inset,
+      0 20px 40px -20px oklch(0 0 0 / 0.30);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+
+  /* Premium focus ring */
+  :is(button, a, input, textarea, [tabindex]) :focus-visible,
+  :is(button, a, input, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    box-shadow:
+      0 0 0 4px oklch(1 0 0 / 0.55),
+      0 0 0 1px var(--ring);
+    border-radius: inherit;
+    transition: outline-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  /* Refined hover/press */
+  .interactive {
+    transition: background-color 160ms ease, color 160ms ease,
+                border-color 160ms ease, transform 120ms ease;
+  }
+  .interactive:hover { transform: translateY(-1px); }
+  .interactive:active { transform: translateY(0); }
+}
+
