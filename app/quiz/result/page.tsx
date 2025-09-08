@@ -69,15 +69,15 @@ export default function QuizResultPage() {
 
   const getScoreMessage = () => {
     if (isUnlimited) {
-      if (result.score >= 10) return "대단해요! 연속 10개 이상 정답!"
-      if (result.score >= 5) return "아주 좋아요! 연속 5개 정답!"
-      if (result.score >= 1) return "좋은 시작이에요!"
-      return "다음엔 더 잘할 수 있어요!"
+      if (result.score >= 10) return "당신은 고수..혹은 금손..! 연속 10개 이상 정답!"
+      if (result.score >= 5) return "오오! 대단해요! 연속 5개 정답!"
+      if (result.score >= 3) return "아쉽네요..ㅜ"
+      return "고생하셨어요!"
     }
     if (percentage >= 80) return "정말 잘했어요!"
     if (percentage >= 60) return "아주 잘했어요!"
     if (percentage >= 40) return "괜찮아요!"
-    return "다음엔 더 잘할 수 있어요!"
+    return "고생하셨어요!"
   }
 
   const getScoreColor = () => {
