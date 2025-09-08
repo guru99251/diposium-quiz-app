@@ -258,8 +258,8 @@ export default function QuizEntryPage() {
               transition={{ delay: 0.6, duration: 0.5 }}
               className="mt-6 text-center text-sm text-gray-500 space-y-1"
             >
-              <p>입력하신 전화번호는 중복 참여 방지를 위해서만 사용됩니다.</p>
-              <p>모드별 1회씩 참여할 수 있어요.</p>
+              <p>🚀입력하신 전화번호는 중복 참여 방지를 위해서만 사용됩니다!</p>
+              <p>🚀퀴즈는 모드별로 1회씩 참여할 수 있어요.</p>
             </motion.div>
           </CardContent>
         </Card>
