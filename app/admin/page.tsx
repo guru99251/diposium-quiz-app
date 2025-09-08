@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -94,8 +94,8 @@ export default function AdminDashboard() {
       <div className="max-w-6xl mx-auto pt-8">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">관리자 대시보드</h1>
-          <p className="text-white/90 text-lg drop-shadow">퀴즈 문제와 결과를 관리하세요</p>
+          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">愿由ъ옄 ??쒕낫??/h1>
+          <p className="text-white/90 text-lg drop-shadow">?댁쫰 臾몄젣? 寃곌낵瑜?愿由ы븯?몄슂</p>
         </motion.div>
 
         {/* Stats Cards */}
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">총 문제 수</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">珥?臾몄젣 ??/CardTitle>
                 <BookOpen className="h-4 w-4 text-quiz-primary" />
               </CardHeader>
               <CardContent>
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">총 참여자</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">珥?李몄뿬??/CardTitle>
                 <Users className="h-4 w-4 text-quiz-secondary" />
               </CardHeader>
               <CardContent>
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">평균 점수</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">?됯퇏 ?먯닔</CardTitle>
                 <BarChart3 className="h-4 w-4 text-quiz-accent" />
               </CardHeader>
               <CardContent>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">오늘 참여자</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">?ㅻ뒛 李몄뿬??/CardTitle>
                 <Users className="h-4 w-4 text-green-600" />
               </CardHeader>
               <CardContent>
@@ -153,8 +153,8 @@ export default function AdminDashboard() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mb-8">
           <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-xl text-gray-800">질문 무제한 모드 랭킹 (연속 정답)</CardTitle>
-              <CardDescription>최대 연속 정답 기록 Top 5</CardDescription>
+              <CardTitle className="text-xl text-gray-800">吏덈Ц 臾댁젣??紐⑤뱶 ??궧 (?곗냽 ?뺣떟)</CardTitle>
+              <CardDescription>理쒕? ?곗냽 ?뺣떟 湲곕줉 Top 5</CardDescription>
             </CardHeader>
             <CardContent>
               {stats.unlimitedTop.length > 0 ? (
@@ -165,12 +165,12 @@ export default function AdminDashboard() {
                         <span className="w-6 text-center text-gray-600 font-semibold">{idx + 1}</span>
                         <span className="font-medium text-gray-800">{row.phone_number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}</span>
                       </div>
-                      <div className="text-quiz-primary font-bold">{row.score}개</div>
+                      <div className="text-quiz-primary font-bold">{row.score}媛?/div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-gray-500">아직 무제한 모드 기록이 없습니다.</div>
+                <div className="text-gray-500">?꾩쭅 臾댁젣??紐⑤뱶 湲곕줉???놁뒿?덈떎.</div>
               )}
             </CardContent>
           </Card>
@@ -184,13 +184,13 @@ export default function AdminDashboard() {
                 <div className="w-16 h-16 bg-quiz-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BookOpen className="w-8 h-8 text-quiz-primary" />
                 </div>
-                <CardTitle className="text-xl text-quiz-primary">문제 관리</CardTitle>
-                <CardDescription>퀴즈 문제를 추가, 수정, 삭제할 수 있습니다</CardDescription>
+                <CardTitle className="text-xl text-quiz-primary">臾몄젣 愿由?/CardTitle>
+                <CardDescription>?댁쫰 臾몄젣瑜?異붽?, ?섏젙, ??젣?????덉뒿?덈떎</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/questions">
                   <Button className="w-full bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
-                    문제 관리하기
+                    臾몄젣 愿由ы븯湲?
                   </Button>
                 </Link>
               </CardContent>
@@ -203,13 +203,13 @@ export default function AdminDashboard() {
                 <div className="w-16 h-16 bg-quiz-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BarChart3 className="w-8 h-8 text-quiz-secondary" />
                 </div>
-                <CardTitle className="text-xl text-quiz-secondary">통계 보기</CardTitle>
-                <CardDescription>퀴즈 참여 통계와 결과를 확인할 수 있습니다</CardDescription>
+                <CardTitle className="text-xl text-quiz-secondary">?듦퀎 蹂닿린</CardTitle>
+                <CardDescription>?댁쫰 李몄뿬 ?듦퀎? 寃곌낵瑜??뺤씤?????덉뒿?덈떎</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/statistics">
                   <Button className="w-full bg-gradient-to-r from-quiz-secondary to-quiz-accent hover:from-quiz-accent hover:to-quiz-secondary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover text-white">
-                    통계 보기
+                    ?듦퀎 蹂닿린
                   </Button>
                 </Link>
               </CardContent>
@@ -222,13 +222,31 @@ export default function AdminDashboard() {
                 <div className="w-16 h-16 bg-quiz-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Plus className="w-8 h-8 text-quiz-accent" />
                 </div>
-                <CardTitle className="text-xl text-quiz-accent">빠른 문제 추가</CardTitle>
-                <CardDescription>새로운 퀴즈 문제를 빠르게 추가할 수 있습니다</CardDescription>
+                <CardTitle className="text-xl text-quiz-accent">鍮좊Ⅸ 臾몄젣 異붽?</CardTitle>
+                <CardDescription>?덈줈???댁쫰 臾몄젣瑜?鍮좊Ⅴ寃?異붽??????덉뒿?덈떎</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/questions/new">
                   <Button className="w-full bg-gradient-to-r from-quiz-accent to-quiz-primary hover:from-quiz-primary hover:to-quiz-accent transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover text-white">
-                    문제 추가하기
+                    臾몄젣 異붽??섍린
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}>
+            <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 hover:scale-105 bg-white/95 backdrop-blur-sm">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-quiz-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Plus className="w-8 h-8 text-quiz-primary" />
+                </div>
+                <CardTitle className="text-xl text-quiz-primary">문제 유형 관리</CardTitle>
+                <CardDescription>문제 유형을 추가/삭제할 수 있어요</CardDescription>
+              </CardHeader>
+              <CardContent className="text-center">
+                <Link href="/admin/categories">
+                  <Button className="w-full bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
+                    유형 관리하기
                   </Button>
                 </Link>
               </CardContent>
@@ -248,7 +266,7 @@ export default function AdminDashboard() {
               variant="outline"
               className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
             >
-              홈으로 돌아가기
+              ?덉쑝濡??뚯븘媛湲?
             </Button>
           </Link>
         </motion.div>
