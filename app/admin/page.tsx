@@ -40,7 +40,7 @@ export default function AdminDashboard() {
       // Get attempts including total_questions and phone
       const { data: attempts } = await supabase
         .from("quiz_attempts")
-        .select("score, total_questions, completed_at, phone_number")
+        .select("score, total_questions, completed_at, phone_number, mode")
 
       // Get today's attempts
       const today = new Date().toISOString().split("T")[0]

@@ -177,7 +177,23 @@ export default function QuizStartPage() {
       router.push("/quiz/result")
     } catch (e) {
       console.error("Error submitting unlimited quiz:", e)
-      alert("퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.")
+      // Proceed to result screen even if DB insert fails
+      const answered = correctAnswers.map((ans, idx) => {
+        const q = pool[idx]
+        return {
+          question_id: q.id,
+          question: q.question,
+          selected_answer: ans,
+          correct_answer: q.correct_answer,
+          is_correct: true,
+        }
+      })
+      const streakScore = answered.length
+      sessionStorage.setItem(
+        "quiz_result",
+        JSON.stringify({ mode: "unlimited", score: streakScore, total: streakScore, questions: answered }),
+      )
+      router.push("/quiz/result")
     } finally {
       setIsSubmitting(false)
     }
