@@ -94,10 +94,10 @@ export default function CategoriesPage() {
                 <Label htmlFor="name">이름 *</Label>
                 <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 디지털콘텐츠학과" />
               </div>
-              <div className="md:col-span-2">
+              {/* <div className="md:col-span-2">
                 <Label htmlFor="desc">설명</Label>
                 <Input id="desc" value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="선택사항" />
-              </div>
+              </div> */}
             </div>
             <div className="mt-4">
               <Button onClick={addType} disabled={saving || !name.trim()} className="bg-gradient-to-r from-quiz-primary to-quiz-secondary">
