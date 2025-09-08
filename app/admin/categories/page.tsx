@@ -43,7 +43,11 @@ export default function CategoriesPage() {
     if (!name.trim()) return
     setSaving(true)
     try {
-      const { error } = await supabase.from("question_types").insert({ name: name.trim(), description: desc.trim() || null })
+      const payload: any = { name: name.trim() }
+      if (desc.trim()) payload.description = desc.trim()
+      const { error } = await supabase
+        .from("question_types")
+        .insert(payload, { returning: "minimal" })
       if (error) throw error
       setName("")
       setDesc("")

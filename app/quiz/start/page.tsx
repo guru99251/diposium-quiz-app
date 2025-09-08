@@ -122,13 +122,15 @@ export default function QuizStartPage() {
       }))
       const score = questionsAnswered.filter((qa) => qa.is_correct).length
 
-      const { error } = await supabase.from("quiz_attempts").insert({
+      const { error } = await supabase
+        .from("quiz_attempts")
+        .insert({
         phone_number: phoneNumber,
         score,
         total_questions: pool.length,
         questions_answered: questionsAnswered,
         mode: "random5",
-      })
+      }, { returning: "minimal" })
       if (error) throw error
 
       sessionStorage.setItem(
@@ -161,13 +163,15 @@ export default function QuizStartPage() {
       })
       const streakScore = answered.length
 
-      const { error } = await supabase.from("quiz_attempts").insert({
+      const { error } = await supabase
+        .from("quiz_attempts")
+        .insert({
         phone_number: phoneNumber,
         score: streakScore,
         total_questions: streakScore,
         questions_answered: answered,
         mode: "unlimited",
-      })
+      }, { returning: "minimal" })
       if (error) throw error
 
       sessionStorage.setItem(
