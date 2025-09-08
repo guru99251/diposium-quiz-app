@@ -9,7 +9,7 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 text-balance drop-shadow-lg"> 🤩 디포지엄 퀴즈 🤩 </h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 text-balance drop-shadow-lg"> 🎁 디포지엄 QUIZ ! 🎁 </h1>
           <p className="text-xl text-white/90 text-pretty max-w-2xl mx-auto drop-shadow">
             두근두근 재미있는 퀴즈! <br></br>자신의 상식, 전공지식, 그리고 운빨을 테스트해보세요!
           </p>
