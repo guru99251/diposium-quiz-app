@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { QrCode, Users, BarChart3, Settings } from "lucide-react"
@@ -11,7 +11,7 @@ export default function HomePage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 text-balance drop-shadow-lg"> 🎁 디포지엄 QUIZ ! 🎁 </h1>
           <p className="text-xl text-white/90 text-pretty max-w-2xl mx-auto drop-shadow">
-            두근두근 재미있는 퀴즈! <br></br>자신의 상식, 전공지식, 그리고 운빨을 테스트해보세요!
+            가볍게 즐기는 퀴즈! 지식, 인공지능, 전시까지 테스트해보세요.
           </p>
         </div>
 
@@ -25,7 +25,7 @@ export default function HomePage() {
               </div>
               <CardTitle className="text-2xl text-sky-500">퀴즈 참여하기</CardTitle>
               <CardDescription className="text-lg">
-                QR 코드를 스캔하거나 직접 접속하여 퀴즈를 시작하세요
+                QR 코드를 스캔하거나 바로 접속하여 퀴즈를 시작해 보세요.
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center">
@@ -34,7 +34,7 @@ export default function HomePage() {
                   size="lg"
                   className="w-full text-lg py-6 rounded-xl bg-sky-600 hover:bg-sky-700 transition-all duration-300 hover:scale-105 shadow-playful hover:shadow-playful-hover text-white border-0"
                 >
-                  퀴즈 시작하기 🚀
+                  퀴즈 시작하기 ▶
                 </Button>
               </Link>
             </CardContent>
@@ -46,8 +46,8 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Settings className="w-8 h-8 text-amber-500" />
               </div>
-              <CardTitle className="text-2xl text-amber-500">관리자 모드</CardTitle>
-              <CardDescription className="text-lg">문제 관리 및 퀴즈 결과를 확인하세요</CardDescription>
+              <CardTitle className="text-2xl text-amber-500">愿由ъ옄 紐⑤뱶</CardTitle>
+              <CardDescription className="text-lg">문제 관리와 퀴즈 결과를 확인하세요</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
               <Link href="/admin">
@@ -55,7 +55,7 @@ export default function HomePage() {
                   size="lg"
                   className="w-full text-lg py-6 rounded-xl bg-amber-600 hover:bg-amber-700 transition-all duration-300 hover:scale-105 shadow-playful hover:shadow-playful-hover text-white border-0"
                 >
-                  관리자로 로그인 ⚙️
+                  관리자 대시보드
                 </Button>
               </Link>
             </CardContent>
@@ -69,10 +69,10 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-2">
                 <Users className="w-6 h-6 text-pink-500" />
               </div>
-              <CardTitle className="text-pink-500">간편한 참여</CardTitle>
+              <CardTitle className="text-pink-500">간편 참여</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">전화번호만 입력하면 바로 퀴즈 시작</p>
+              <p className="text-gray-600">전화번호만 입력하면 바로 시작</p>
             </CardContent>
           </Card>
 
@@ -84,7 +84,7 @@ export default function HomePage() {
               <CardTitle className="text-sky-500">다양한 문제</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">학과, 전시, 전공별 맞춤 문제</p>
+              <p className="text-gray-600">학과, 전시, 상식 맞춤 문제</p>
             </CardContent>
           </Card>
 

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type React from "react"
 
@@ -25,7 +25,7 @@ export default function QuizEntryPage() {
 
     const phoneRegex = /^01[0-9]-?[0-9]{4}-?[0-9]{4}$/
     if (!phoneRegex.test(phoneNumber.replace(/-/g, ""))) {
-      setError("올바른 전화번호 형식으로 입력해주세요 (예: 010-1234-5678)")
+      setError("?щ컮瑜??꾪솕踰덊샇 ?뺤떇?쇰줈 ?낅젰?댁＜?몄슂 (?? 010-1234-5678)")
       setIsLoading(false)
       return
     }
@@ -50,7 +50,7 @@ export default function QuizEntryPage() {
           .limit(1)
 
         if (tried5 && tried5.length > 0) {
-          setError("이미 5문제 모드에 참여하셨어요.")
+          setError("?대? 5臾몄젣 紐⑤뱶??李몄뿬?섏뀲?댁슂.")
           setIsLoading(false)
           return
         }
@@ -63,7 +63,7 @@ export default function QuizEntryPage() {
           .limit(1)
 
         if (triedUnlimited && triedUnlimited.length > 0) {
-          setError("이미 질문 무제한 모드에 참여하셨어요.")
+          setError("?대? 吏덈Ц 臾댁젣??紐⑤뱶??李몄뿬?섏뀲?댁슂.")
           setIsLoading(false)
           return
         }
@@ -95,9 +95,9 @@ export default function QuizEntryPage() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <CardTitle className="text-3xl font-bold text-quiz-primary">퀴즈 참여하기</CardTitle>
+              <CardTitle className="text-3xl font-bold text-quiz-primary">?댁쫰 李몄뿬?섍린</CardTitle>
               <CardDescription className="text-lg text-gray-600 mt-2">
-                전화번호 입력 후 모드를 선택하세요.
+                ?꾪솕踰덊샇 ?낅젰 ??紐⑤뱶瑜??좏깮?섏꽭??
               </CardDescription>
             </motion.div>
           </CardHeader>
@@ -111,7 +111,7 @@ export default function QuizEntryPage() {
                   className="space-y-2"
                 >
                   <Label htmlFor="phone" className="text-base font-medium text-gray-700">
-                    전화번호
+                    ?꾪솕踰덊샇
                   </Label>
                   <Input
                     id="phone"
@@ -140,7 +140,7 @@ export default function QuizEntryPage() {
                     disabled={isLoading}
                     className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105"
                   >
-                    {isLoading ? "확인 중..." : "다음: 모드 선택"}
+                    {isLoading ? "?뺤씤 以?.." : "?ㅼ쓬: 紐⑤뱶 ?좏깮"}
                   </Button>
                 </motion.div>
               </form>
@@ -161,26 +161,26 @@ export default function QuizEntryPage() {
                     onClick={() => handleSelectMode("random5")}
                     className="
                           relative rounded-2xl p-5 text-left text-white
-                          /* 기본: 보라 그라디언트 + 움직임 */
+                          /* 湲곕낯: 蹂대씪 洹몃씪?붿뼵??+ ?吏곸엫 */
                           bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600
                           bg-[length:200%_100%] bg-[position:0%_0%]
                           transition-[background-position,colors,box-shadow,transform] duration-500
                           hover:bg-[position:100%_0%] hover:brightness-105 active:brightness-95
 
-                          /* 보더 */
+                          /* 蹂대뜑 */
                           border-2 border-transparent hover:border-white/60 focus-visible:border-white/80
 
-                          /* 선택/포커스 시 배경 강조 */
+                          /* ?좏깮/?ъ빱????諛곌꼍 媛뺤“ */
                           focus:outline-none focus-visible:ring-4 focus-visible:ring-white/15
                           focus-visible:from-purple-800 focus-visible:via-purple-700 focus-visible:to-indigo-800
 
-                          /* 그림자 */
+                          /* 洹몃┝??*/
                           shadow-playful hover:shadow-playful-hover
 
-                          /* 비활성화 */
+                          /* 鍮꾪솢?깊솕 */
                           disabled:opacity-60 disabled:cursor-not-allowed
 
-                          /* — 그라디언트 보더 애니메이션 — */
+                          /* ??洹몃씪?붿뼵??蹂대뜑 ?좊땲硫붿씠????*/
                           before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:pointer-events-none
                           before:p-[2px] before:opacity-0 focus-visible:before:opacity-100
                           before:transition-opacity before:duration-300
@@ -191,8 +191,8 @@ export default function QuizEntryPage() {
                           before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]
                         "
                       >
-                    <div className="text-xl font-extrabold">무작위 5개</div>
-                    <div className="opacity-90">5문제 모두 풀기</div>
+                    <div className="text-xl font-extrabold">臾댁옉??5媛?/div>
+                    <div className="opacity-90">5臾몄젣 紐⑤몢 ?湲?/div>
                   </motion.button>
 
                   <motion.button
@@ -203,26 +203,26 @@ export default function QuizEntryPage() {
                     onClick={() => handleSelectMode("unlimited")}
                     className="
                         relative rounded-2xl p-5 text-left text-white
-                        /* 기본: 그라디언트 배경 + 살짝 움직이는 쉐입 */
+                        /* 湲곕낯: 洹몃씪?붿뼵??諛곌꼍 + ?댁쭩 ?吏곸씠???먯엯 */
                         bg-gradient-to-r from-orange-500 via-orange-400 to-pink-600
                         bg-[length:200%_100%] bg-[position:0%_0%]
                         transition-[background-position,colors,box-shadow,transform] duration-500
                         hover:bg-[position:100%_0%] hover:brightness-105 active:brightness-95
 
-                        /* 테두리: 기본 투명, 선택 시 보임 */
+                        /* ?뚮몢由? 湲곕낯 ?щ챸, ?좏깮 ??蹂댁엫 */
                         border-2 border-transparent hover:border-white/60 focus-visible:border-white/80
 
-                        /* 선택 시 배경 톤업 + 링 */
+                        /* ?좏깮 ??諛곌꼍 ?ㅼ뾽 + 留?*/
                         focus:outline-none focus-visible:ring-4 focus-visible:ring-white/15
                         focus-visible:from-orange-600 focus-visible:via-orange-500 focus-visible:to-pink-600
 
-                        /* 그림자 */
+                        /* 洹몃┝??*/
                         shadow-playful hover:shadow-playful-hover
 
-                        /* 비활성화 */
+                        /* 鍮꾪솢?깊솕 */
                         disabled:opacity-60 disabled:cursor-not-allowed
 
-                        /* —— 선택 시 그라디언트 보더 애니메이션(가상요소, className만으로 구현) —— */
+                        /* ?붴??좏깮 ??洹몃씪?붿뼵??蹂대뜑 ?좊땲硫붿씠??媛?곸슂?? className留뚯쑝濡?援ы쁽) ?붴?*/
                         before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:pointer-events-none
                         before:p-[2px] before:opacity-0 focus-visible:before:opacity-100
                         before:transition-opacity before:duration-300
@@ -233,8 +233,8 @@ export default function QuizEntryPage() {
                         before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]
                       "
                     >
-                    <div className="text-xl font-extrabold">질문 무제한</div>
-                    <div className="opacity-90">틀릴 때까지 연속 정답</div>
+                    <div className="text-xl font-extrabold">吏덈Ц 臾댁젣??/div>
+                    <div className="opacity-90">?由??뚭퉴吏 ?곗냽 ?뺣떟</div>
                   </motion.button>
                 </div>
 
@@ -246,7 +246,7 @@ export default function QuizEntryPage() {
 
                 <div className="text-center">
                   <Button variant="outline" onClick={() => setStep("phone")} className="bg-white/70 border-gray-300">
-                    ‹ 전화번호 다시 입력
+                    ???꾪솕踰덊샇 ?ㅼ떆 ?낅젰
                   </Button>
                 </div>
               </div>
@@ -258,9 +258,9 @@ export default function QuizEntryPage() {
               transition={{ delay: 0.6, duration: 0.5 }}
               className="mt-6 text-center text-sm text-gray-500 space-y-1"
             >
-              <em>🚀 퀴즈는 모드별로 <strong>1회씩</strong> 참여할 수 있어요!</em>
+              <em>?? ?댁쫰??紐⑤뱶蹂꾨줈 <strong>1?뚯뵫</strong> 李몄뿬?????덉뼱??</em>
               <br></br>
-              <em>🚀 전화번호는 중복 참여 방지를 위해서만 사용됩니다.</em>
+              <em>?? ?꾪솕踰덊샇??以묐났 李몄뿬 諛⑹?瑜??꾪빐?쒕쭔 ?ъ슜?⑸땲??</em>
             </motion.div>
           </CardContent>
         </Card>

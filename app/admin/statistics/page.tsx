@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -146,7 +146,7 @@ export default function StatisticsPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">총 참여자</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">총 참여 수</CardTitle>
                 <Users className="h-4 w-4 text-quiz-primary" />
               </CardHeader>
               <CardContent>
@@ -182,7 +182,7 @@ export default function StatisticsPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">오늘 참여자</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">오늘 참여 수</CardTitle>
                 <Clock className="h-4 w-4 text-green-600" />
               </CardHeader>
               <CardContent>
@@ -197,9 +197,9 @@ export default function StatisticsPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader>
+              <CardHeader>
                 <CardTitle className="text-xl text-gray-800">점수 분포</CardTitle>
-                <CardDescription>각 점수별 참여자 수를 확인할 수 있습니다</CardDescription>
-              </CardHeader>
+                <CardDescription>점수별 참여 현황을 확인해요</CardDescription>
               <CardContent>
                 <div className="space-y-3">
                   {[0, 1, 2, 3, 4, 5].map((score) => {
@@ -233,8 +233,8 @@ export default function StatisticsPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
             <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-xl text-gray-800">최근 참여자</CardTitle>
-                <CardDescription>최근 퀴즈에 참여한 사용자들의 결과입니다</CardDescription>
+                <CardTitle className="text-xl text-gray-800">최근 참여</CardTitle>
+                <CardDescription>최근 퀴즈 참여자들의 결과입니다</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -267,7 +267,7 @@ export default function StatisticsPage() {
                       </motion.div>
                     ))
                   ) : (
-                    <div className="text-center py-8 text-gray-500">아직 참여자가 없습니다.</div>
+                    <div className="text-center py-8 text-gray-500">아직 참여 기록이 없습니다.</div>
                   )}
                 </div>
               </CardContent>
