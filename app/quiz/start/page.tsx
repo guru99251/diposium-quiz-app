@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -18,15 +18,22 @@ interface Question {
   correct_answer: string
 }
 
+type Mode = "random5" | "unlimited"
+
 export default function QuizStartPage() {
-  const [questions, setQuestions] = useState<Question[]>([])
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [pool, setPool] = useState<Question[]>([])
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string>("")
   const [answers, setAnswers] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState<string>("")
+  const [mode, setMode] = useState<Mode>("random5")
+  const [streak, setStreak] = useState<number>(0)
+  const [usedIds, setUsedIds] = useState<Set<string>>(new Set())
+
   const router = useRouter()
+  const params = useSearchParams()
 
   useEffect(() => {
     const phone = sessionStorage.getItem("quiz_phone")
@@ -35,89 +42,144 @@ export default function QuizStartPage() {
       return
     }
     setPhoneNumber(phone)
-    loadQuestions()
-  }, [router])
+    const m = (params?.get("mode") as Mode) || (sessionStorage.getItem("quiz_mode") as Mode) || "random5"
+    setMode(m)
+    loadQuestions(m)
+  }, [router, params])
 
-  const loadQuestions = async () => {
+  const loadQuestions = async (m: Mode) => {
     try {
       const supabase = createClient()
-
-      // Get 5 random questions
-      const { data, error } = await supabase.from("questions").select("*").limit(20) // Get more than needed for randomization
-
+      const { data, error } = await supabase.from("questions").select("*")
       if (error) throw error
-
-      // Randomly select 5 questions
-      const shuffled = data.sort(() => 0.5 - Math.random())
-      const selectedQuestions = shuffled.slice(0, 5)
-
-      setQuestions(selectedQuestions)
+      const shuffled = (data || []).sort(() => 0.5 - Math.random())
+      if (m === "random5") {
+        setPool(shuffled.slice(0, 5))
+      } else {
+        setPool(shuffled)
+      }
+      setCurrentIndex(0)
       setIsLoading(false)
-    } catch (error) {
-      console.error("Error loading questions:", error)
+    } catch (e) {
+      console.error("Error loading questions:", e)
       router.push("/quiz")
     }
   }
 
-  const handleAnswerSelect = (answer: string) => {
-    setSelectedAnswer(answer)
-  }
+  const currentQuestion = pool[currentIndex]
+  const progress = useMemo(() => (mode === "random5" ? ((currentIndex + 1) / Math.max(pool.length, 1)) * 100 : 0), [mode, currentIndex, pool.length])
 
-  const handleNextQuestion = () => {
-    const newAnswers = [...answers, selectedAnswer]
-    setAnswers(newAnswers)
+  const handleAnswerSelect = (answer: string) => setSelectedAnswer(answer)
+
+  const handleNext = () => {
+    if (!currentQuestion) return
+
+    if (mode === "random5") {
+      const newAnswers = [...answers, selectedAnswer]
+      setAnswers(newAnswers)
+      setSelectedAnswer("")
+      if (currentIndex < pool.length - 1) {
+        setCurrentIndex(currentIndex + 1)
+      } else {
+        submitRandom5(newAnswers)
+      }
+      return
+    }
+
+    // unlimited mode
+    const isCorrect = selectedAnswer === currentQuestion.correct_answer
+    const nextCorrectList = isCorrect ? [...answers, selectedAnswer] : [...answers]
+    setAnswers(nextCorrectList)
     setSelectedAnswer("")
 
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1)
+    if (!isCorrect) {
+      submitUnlimited(nextCorrectList)
+      return
+    }
+
+    setStreak((s) => s + 1)
+    const nextUsed = new Set(usedIds)
+    nextUsed.add(currentQuestion.id)
+    setUsedIds(nextUsed)
+
+    // Advance to next unused question in pool
+    let nextIdx = currentIndex + 1
+    while (nextIdx < pool.length && nextUsed.has(pool[nextIdx].id)) nextIdx++
+    if (nextIdx >= pool.length) {
+      // Ran out of questions: end as perfect streak
+      submitUnlimited(nextCorrectList)
     } else {
-      submitQuiz(newAnswers)
+      setCurrentIndex(nextIdx)
     }
   }
 
-  const submitQuiz = async (finalAnswers: string[]) => {
+  const submitRandom5 = async (finalAnswers: string[]) => {
     setIsSubmitting(true)
-
     try {
       const supabase = createClient()
 
-      // Calculate score
-      let score = 0
-      const questionsAnswered = questions.map((question, index) => ({
-        question_id: question.id,
-        question: question.question,
-        selected_answer: finalAnswers[index],
-        correct_answer: question.correct_answer,
-        is_correct: finalAnswers[index] === question.correct_answer,
+      const questionsAnswered = pool.map((q, i) => ({
+        question_id: q.id,
+        question: q.question,
+        selected_answer: finalAnswers[i],
+        correct_answer: q.correct_answer,
+        is_correct: finalAnswers[i] === q.correct_answer,
       }))
+      const score = questionsAnswered.filter((qa) => qa.is_correct).length
 
-      questionsAnswered.forEach((qa) => {
-        if (qa.is_correct) score++
-      })
-
-      // Save quiz attempt
       const { error } = await supabase.from("quiz_attempts").insert({
         phone_number: phoneNumber,
         score,
-        total_questions: questions.length,
+        total_questions: pool.length,
         questions_answered: questionsAnswered,
       })
-
       if (error) throw error
 
-      // Store results and redirect
       sessionStorage.setItem(
         "quiz_result",
-        JSON.stringify({
-          score,
-          total: questions.length,
-          questions: questionsAnswered,
-        }),
+        JSON.stringify({ mode: "random5", score, total: pool.length, questions: questionsAnswered }),
       )
-
       router.push("/quiz/result")
-    } catch (error) {
-      console.error("Error submitting quiz:", error)
+    } catch (e) {
+      console.error("Error submitting quiz:", e)
+      alert("퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const submitUnlimited = async (correctAnswers: string[]) => {
+    setIsSubmitting(true)
+    try {
+      const supabase = createClient()
+
+      const answered = correctAnswers.map((ans, idx) => {
+        const q = pool[idx]
+        return {
+          question_id: q.id,
+          question: q.question,
+          selected_answer: ans,
+          correct_answer: q.correct_answer,
+          is_correct: true,
+        }
+      })
+      const streakScore = answered.length
+
+      const { error } = await supabase.from("quiz_attempts").insert({
+        phone_number: phoneNumber,
+        score: streakScore,
+        total_questions: streakScore,
+        questions_answered: answered,
+      })
+      if (error) throw error
+
+      sessionStorage.setItem(
+        "quiz_result",
+        JSON.stringify({ mode: "unlimited", score: streakScore, total: streakScore, questions: answered }),
+      )
+      router.push("/quiz/result")
+    } catch (e) {
+      console.error("Error submitting unlimited quiz:", e)
       alert("퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.")
     } finally {
       setIsSubmitting(false)
@@ -136,27 +198,34 @@ export default function QuizStartPage() {
     )
   }
 
-  const currentQuestion = questions[currentQuestionIndex]
-  const progress = ((currentQuestionIndex + 1) / questions.length) * 100
+  if (!currentQuestion) {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent p-4">
       <div className="max-w-2xl mx-auto pt-8">
-        {/* Progress Bar */}
+        {/* Progress / Streak */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-white font-medium">
-              문제 {currentQuestionIndex + 1} / {questions.length}
-            </span>
-            <span className="text-white font-medium">{Math.round(progress)}%</span>
-          </div>
-          <Progress value={progress} className="h-3 bg-white/20" />
+          {mode === "random5" ? (
+            <>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-white font-medium">
+                  문제 {currentIndex + 1} / {pool.length}
+                </span>
+                <span className="text-white font-medium">{Math.round(progress)}%</span>
+              </div>
+              <Progress value={progress} className="h-3 bg-white/20" />
+            </>
+          ) : (
+            <div className="text-center text-white font-semibold">연속 정답 {streak}개</div>
+          )}
         </motion.div>
 
         {/* Question Card */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentQuestionIndex}
+            key={currentIndex}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -191,15 +260,17 @@ export default function QuizStartPage() {
 
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: selectedAnswer ? 1 : 0.5 }} className="pt-4">
                   <Button
-                    onClick={handleNextQuestion}
+                    onClick={handleNext}
                     disabled={!selectedAnswer || isSubmitting}
                     className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {isSubmitting
                       ? "제출 중..."
-                      : currentQuestionIndex === questions.length - 1
-                        ? "🎯 퀴즈 완료하기"
-                        : "➡️ 다음 문제"}
+                      : mode === "random5"
+                        ? currentIndex === pool.length - 1
+                          ? "지금 퀴즈 완료하기"
+                          : "▶️ 다음 문제"
+                        : "▶️ 확인 / 다음"}
                   </Button>
                 </motion.div>
               </CardContent>
@@ -210,3 +281,4 @@ export default function QuizStartPage() {
     </div>
   )
 }
+

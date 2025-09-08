@@ -13,6 +13,7 @@ interface DashboardStats {
   totalAttempts: number
   averageScore: number
   todayAttempts: number
+  unlimitedTop: { phone_number: string; score: number }[]
 }
 
 export default function AdminDashboard() {
@@ -21,6 +22,7 @@ export default function AdminDashboard() {
     totalAttempts: 0,
     averageScore: 0,
     todayAttempts: 0,
+    unlimitedTop: [],
   })
   const [isLoading, setIsLoading] = useState(true)
 
@@ -35,8 +37,10 @@ export default function AdminDashboard() {
       // Get total questions
       const { count: questionsCount } = await supabase.from("questions").select("*", { count: "exact", head: true })
 
-      // Get total attempts and average score
-      const { data: attempts } = await supabase.from("quiz_attempts").select("score, completed_at")
+      // Get attempts including total_questions and phone
+      const { data: attempts } = await supabase
+        .from("quiz_attempts")
+        .select("score, total_questions, completed_at, phone_number")
 
       // Get today's attempts
       const today = new Date().toISOString().split("T")[0]
@@ -47,16 +51,24 @@ export default function AdminDashboard() {
         .lt("completed_at", `${today}T23:59:59.999Z`)
 
       const totalAttempts = attempts?.length || 0
+      const fiveAttempts = (attempts || []).filter((a) => a.total_questions === 5)
       const averageScore =
-        totalAttempts > 0
-          ? Math.round(((attempts?.reduce((sum, attempt) => sum + attempt.score, 0) || 0) / totalAttempts) * 10) / 10
+        fiveAttempts.length > 0
+          ? Math.round(((fiveAttempts.reduce((sum, a) => sum + a.score, 0) || 0) / fiveAttempts.length) * 10) / 10
           : 0
+
+      const unlimited = (attempts || []).filter((a) => a.total_questions !== 5)
+      const unlimitedTop = unlimited
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5)
+        .map((a) => ({ phone_number: a.phone_number, score: a.score }))
 
       setStats({
         totalQuestions: questionsCount || 0,
         totalAttempts,
         averageScore,
         todayAttempts: todayCount || 0,
+        unlimitedTop,
       })
     } catch (error) {
       console.error("Error loading dashboard stats:", error)
@@ -136,6 +148,33 @@ export default function AdminDashboard() {
             </Card>
           </motion.div>
         </div>
+
+        {/* Unlimited Mode Ranking */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mb-8">
+          <Card className="border-0 shadow-playful bg-white/95 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-xl text-gray-800">질문 무제한 모드 랭킹 (연속 정답)</CardTitle>
+              <CardDescription>최대 연속 정답 기록 Top 5</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {stats.unlimitedTop.length > 0 ? (
+                <div className="space-y-2">
+                  {stats.unlimitedTop.map((row, idx) => (
+                    <div key={row.phone_number + idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 text-center text-gray-600 font-semibold">{idx + 1}</span>
+                        <span className="font-medium text-gray-800">{row.phone_number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}</span>
+                      </div>
+                      <div className="text-quiz-primary font-bold">{row.score}개</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-gray-500">아직 무제한 모드 기록이 없습니다.</div>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Action Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
