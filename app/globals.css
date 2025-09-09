@@ -166,7 +166,11 @@
 
 @layer base {
   html, body {
-    height: 100%;
+    /* Use min-height to allow background to extend with content on mobile */
+    min-height: 100%;
+    height: auto;
+    /* Ensure at least the dynamic viewport height is covered (mobile address bar safe) */
+    min-height: 100dvh;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     color-scheme: light dark;

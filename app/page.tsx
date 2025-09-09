@@ -5,7 +5,7 @@ import { QrCode, Users, BarChart3, Settings } from "lucide-react"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen" data-quiz-homepage>
+    <div className="min-h-[100dvh]" data-quiz-homepage>
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
