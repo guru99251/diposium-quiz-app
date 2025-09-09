@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { QrCode, Users, BarChart3, Settings } from "lucide-react"
 
+export const dynamic = 'force-static'
+
 export default function HomePage() {
   return (
     <div className="min-h-[100dvh]" data-quiz-homepage>
@@ -27,7 +29,7 @@ export default function HomePage() {
               <CardDescription className="text-lg">QR 코드를 스캔하거나<br></br>주소로 접속해 시작하세요.</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-              <Link href="/quiz">
+              <Link href="/quiz" prefetch={false}>
                 <Button
                   size="lg"
                   className="w-full text-lg py-6 rounded-xl bg-sky-600 hover:bg-sky-700 transition-all duration-300 hover:scale-105 shadow-playful hover:shadow-playful-hover text-white border-0"
@@ -48,7 +50,7 @@ export default function HomePage() {
               <CardDescription className="text-lg">문제 관리와 참여 현황 보기<br></br> (운영진만)</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-              <Link href="/admin">
+              <Link href="/admin" prefetch={false}>
                 <Button
                   size="lg"
                   className="w-full text-lg py-6 rounded-xl bg-amber-600 hover:bg-amber-700 transition-all duration-300 hover:scale-105 shadow-playful hover:shadow-playful-hover text-white border-0"

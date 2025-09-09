@@ -185,7 +185,7 @@ export default function AdminDashboard() {
                 <CardDescription>퀴즈 문제 추가, 수정, 삭제</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
-                <Link href="/admin/questions">
+                <Link href="/admin/questions" prefetch={false}>
                   <Button className="w-full bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     문제 관리하기
                   </Button>
@@ -204,7 +204,7 @@ export default function AdminDashboard() {
                 <CardDescription>참여 통계와 결과 확인</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
-                <Link href="/admin/statistics">
+                <Link href="/admin/statistics" prefetch={false}>
                   <Button className="w-full bg-gradient-to-r from-quiz-secondary to-quiz-accent hover:from-quiz-accent hover:to-quiz-secondary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover text-white">
                     통계 보기
                   </Button>
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
                 <CardDescription>바로 새 퀴즈 문제 추가</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
-                <Link href="/admin/questions/new">
+                <Link href="/admin/questions/new" prefetch={false}>
                   <Button className="w-full bg-gradient-to-r from-quiz-accent to-quiz-primary hover:from-quiz-primary hover:to-quiz-accent transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover text-white">
                     문제 추가하기
                   </Button>
@@ -242,7 +242,7 @@ export default function AdminDashboard() {
                 <CardDescription>문제 유형을 추가/삭제하세요</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
-                <Link href="/admin/categories">
+                <Link href="/admin/categories" prefetch={false}>
                   <Button className="w-full bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     유형 관리하기
                   </Button>
@@ -254,7 +254,7 @@ export default function AdminDashboard() {
 
         {/* Back to Home */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="text-center mt-8">
-          <Link href="/">
+          <Link href="/" prefetch={false}>
             <Button variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
               홈으로 돌아가기
             </Button>
@@ -264,4 +264,3 @@ export default function AdminDashboard() {
     </div>
   )
 }
-
