@@ -24,7 +24,7 @@ export default function HomePage() {
                 <QrCode className="w-8 h-8 text-sky-500" />
               </div>
               <CardTitle className="text-2xl text-sky-500">퀴즈 참여하기</CardTitle>
-              <CardDescription className="text-lg">QR 코드를 스캔하거나 주소로 접속해 시작하세요.</CardDescription>
+              <CardDescription className="text-lg">QR 코드를 스캔하거나<br></br>주소로 접속해 시작하세요.</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
               <Link href="/quiz">
@@ -45,7 +45,7 @@ export default function HomePage() {
                 <Settings className="w-8 h-8 text-amber-500" />
               </div>
               <CardTitle className="text-2xl text-amber-500">관리자 모드</CardTitle>
-              <CardDescription className="text-lg">문제 관리와 결과 확인</CardDescription>
+              <CardDescription className="text-lg">문제 관리와 참여 현황 보기<br></br> (운영진만)</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
               <Link href="/admin">
