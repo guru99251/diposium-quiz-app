@@ -229,6 +229,135 @@
   }
 }
 
+/* ===============================
+   Neumorphism (Soft UI) System
+   =============================== */
+
+:root {
+  --neu-bg: #e0e0e0; /* soft light grey */
+  --neu-text: #2b2b2b; /* dark text for 4.5:1 contrast */
+  --neu-muted: #6b7280;
+  --neu-shadow-dark: #bebebe; /* bottom-right shadow */
+  --neu-shadow-light: #ffffff; /* top-left highlight */
+  --neu-radius: 16px;
+  --neu-accent: #6c7aa0; /* muted pastel accent */
+}
+
+.dark {
+  --neu-bg: #1d1f23; /* dark, matte */
+  --neu-text: #e8e8e8;
+  --neu-muted: #9aa0aa;
+  --neu-shadow-dark: #0f1012; /* bottom-right shadow */
+  --neu-shadow-light: #2a2e34; /* top-left highlight */
+  --neu-accent: #8aa4ff; /* subtle accent for focus */
+}
+
+/* Outset and inset shadow presets */
+.neu-surface {
+  background: var(--neu-bg);
+  border-radius: var(--neu-radius);
+  box-shadow:
+    8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light);
+}
+
+.neu-surface--inset {
+  background: var(--neu-bg);
+  border-radius: var(--neu-radius);
+  box-shadow:
+    inset 8px 8px 16px var(--neu-shadow-dark),
+    inset -8px -8px 16px var(--neu-shadow-light);
+}
+
+/* Accessible focus ring for keyboard users */
+.neu-focus:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--neu-accent) 60%, black);
+  outline-offset: 2px;
+}
+
+/* Neumorphic buttons */
+.neu-btn {
+  border-radius: 9999px;
+  background: var(--neu-bg);
+  color: var(--neu-text);
+  box-shadow:
+    6px 6px 12px var(--neu-shadow-dark),
+    -6px -6px 12px var(--neu-shadow-light);
+  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.neu-btn:hover {
+  transform: translateY(-1px);
+}
+
+.neu-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 6px 6px 12px var(--neu-shadow-dark),
+    inset -6px -6px 12px var(--neu-shadow-light);
+}
+
+.neu-btn--inset {
+  box-shadow:
+    inset 6px 6px 12px var(--neu-shadow-dark),
+    inset -6px -6px 12px var(--neu-shadow-light);
+}
+
+.neu-btn--ghost {
+  background: color-mix(in oklab, var(--neu-bg) 90%, transparent);
+  box-shadow:
+    4px 4px 8px var(--neu-shadow-dark),
+    -4px -4px 8px var(--neu-shadow-light);
+}
+
+/* Minimal spinner with soft UI */
+.neu-spinner {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 35% 35%, var(--neu-shadow-light) 35%, transparent 36%)
+      top left / 50% 50% no-repeat,
+    radial-gradient(circle at 65% 65%, var(--neu-shadow-dark) 35%, transparent 36%)
+      bottom right / 50% 50% no-repeat,
+    var(--neu-bg);
+  box-shadow:
+    8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light);
+  animation: neu-spin 1.2s linear infinite;
+}
+
+@keyframes neu-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Revenue card demo specifics */
+.neu-revenue-card {
+  background: var(--neu-bg);
+  color: var(--neu-text);
+  border-radius: 20px;
+  padding: 1.25rem;
+  box-shadow:
+    12px 12px 24px var(--neu-shadow-dark),
+    -12px -12px 24px var(--neu-shadow-light);
+}
+
+.neu-revenue-title { font-weight: 600; letter-spacing: 0.2px; }
+.neu-revenue-value { font-variant-numeric: tabular-nums; }
+.neu-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.55rem; border-radius: 9999px;
+  background: color-mix(in oklab, var(--neu-bg) 86%, transparent);
+  box-shadow: inset 4px 4px 8px var(--neu-shadow-dark), inset -4px -4px 8px var(--neu-shadow-light);
+}
+
+/* Neutralize previous saturated UI utilities into background-integrated style */
+.bg-gradient-to-r, .bg-gradient-to-br { background: var(--neu-bg) !important; background-image: none !important; }
+.from-quiz-primary, .via-quiz-secondary, .to-quiz-accent { background-image: none !important; }
+.bg-white\/95 { background-color: var(--neu-bg) !important; }
+.shadow-playful { box-shadow: 8px 8px 16px var(--neu-shadow-dark), -8px -8px 16px var(--neu-shadow-light) !important; }
+.hover\:shadow-playful-hover:hover { box-shadow: 10px 10px 20px var(--neu-shadow-dark), -10px -10px 20px var(--neu-shadow-light) !important; }
+
+
 /* ——— Components: subtle glass & motion-ready ——— */
 @layer components {
   .glass {
