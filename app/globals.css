@@ -3,6 +3,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Design variables from Design examples/01 */
+:root {
+  --hue1: 255;
+  --hue2: 222;
+  --glass-radius: 22px;
+  --glass-border: 1px;
+  --glass-border-color: hsl(var(--hue2) 12% 20%);
+}
+
 :root {
   /* ——— Lux-Modern palette (OKLCH) ——— */
   --background: oklch(0.985 0.01 95);         /* soft warm white */
@@ -182,49 +191,36 @@
 
   body {
     @apply text-foreground bg-background;
-    /* Subtle premium gradient using tokens (replaces saturated rainbow) */
-    background:
-      radial-gradient(1200px 600px at 80% -10%,
-        oklch(0.95 0.02 265 / 0.35), transparent 60%),
-      radial-gradient(1000px 500px at -10% 20%,
-        oklch(0.96 0.02 155 / 0.25), transparent 55%),
-      linear-gradient(180deg, oklch(1 0 0), oklch(0.98 0 0)) !important;
+    /* Background from Design examples/01 (neon glass) */
+    background: #08090d !important;
+    background-image:
+      url('/images/abstract-light.jpg'),
+      linear-gradient(to right in oklab, hsl(var(--hue2) 50% 75%), hsl(var(--hue1) 50% 75%)) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-blend-mode: hard-light !important;
   }
 
-  /* Homepage variant: layered gradients with brand tokens */
+  /* Homepage uses same neon/glass background */
   body:has([data-quiz-homepage]) {
-    background:
-      /* subtle vignette to avoid empty white feel */
-      radial-gradient(1200px 800px at 50% 50%,
-        transparent 42%, oklch(0 0 0 / 0.045) 100%),
-      /* center wash to fill behind cards */
-      radial-gradient(800px 600px at 50% 45%,
-        color-mix(in oklch, var(--color-quiz-secondary) 80%, oklch(1 0 0)), transparent 70%),
-      /* top-left glow */
-      radial-gradient(700px 400px at 12% 8%,
-        color-mix(in oklch, var(--color-quiz-primary) 26%, transparent), transparent 65%),
-      /* top-right glow */
-      radial-gradient(650px 360px at 88% 12%,
-        color-mix(in oklch, var(--color-quiz-secondary) 24%, transparent), transparent 65%),
-      /* bottom glow */
-      radial-gradient(900px 500px at 70% 110%,
-        color-mix(in oklch, var(--color-quiz-accent) 24%, transparent), transparent 70%),
-      /* soft base sweep */
-      linear-gradient(135deg,
-        color-mix(in oklch, var(--color-quiz-primary) 100%, oklch(1 0 0)),
-        color-mix(in oklch, var(--color-quiz-secondary) 100%, oklch(0.99 0 0)),
-        color-mix(in oklch, var(--color-quiz-accent) 100%, oklch(1 0 0))
-      ) !important;
+    background: #08090d !important;
+    background-image:
+      url('/images/abstract-light.jpg'),
+      linear-gradient(to right in oklab, hsl(var(--hue2) 50% 75%), hsl(var(--hue1) 50% 75%)) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-blend-mode: hard-light !important;
   }
 
   @media (prefers-color-scheme: dark) {
     body {
-      background:
-        radial-gradient(1000px 500px at 85% -10%,
-          oklch(0.30 0.03 265 / 0.35), transparent 60%),
-        radial-gradient(900px 450px at -10% 30%,
-          oklch(0.28 0.03 155 / 0.28), transparent 55%),
-        linear-gradient(180deg, oklch(0.16 0.02 255), oklch(0.14 0.02 255)) !important;
+      background: #08090d !important;
+      background-image:
+        url('/images/abstract-light.jpg'),
+        linear-gradient(to right in oklab, hsl(var(--hue2) 50% 75%), hsl(var(--hue1) 50% 75%)) !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-blend-mode: hard-light !important;
     }
   }
 }
@@ -270,5 +266,19 @@
   }
   .interactive:hover { transform: translateY(-1px); }
   .interactive:active { transform: translateY(0); }
-}
 
+  /* Neon-glass cards (applies globally to shadcn cards) */
+  [data-slot="card"] {
+    background:
+      linear-gradient(235deg, hsl(var(--hue1) 50% 10% / 0.60), hsl(var(--hue1) 50% 10% / 0) 33%),
+      linear-gradient(45deg , hsl(var(--hue2) 50% 10% / 0.60), hsl(var(--hue2) 50% 10% / 0) 33%),
+      linear-gradient(hsl(220deg 25% 4.8% / 0.50)) !important;
+    background-color: transparent !important;
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: var(--glass-border) solid var(--glass-border-color);
+    box-shadow:
+      hsl(var(--hue2) 50% 2%) 0px 10px 16px -8px,
+      hsl(var(--hue2) 50% 4%) 0px 20px 36px -14px;
+  }
+}
