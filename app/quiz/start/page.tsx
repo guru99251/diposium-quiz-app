@@ -2,9 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
 import { createClient } from "@/lib/supabase/client"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -51,13 +48,8 @@ export default function QuizStartPage() {
       const supabase = createClient()
       const { data, error } = await supabase.from("questions").select("*")
       if (error) throw error
-      // ensure no duplicates by shuffling and slicing
       const shuffled = (data || []).slice().sort(() => 0.5 - Math.random())
-      if (m === "random5") {
-        setPool(shuffled.slice(0, 5))
-      } else {
-        setPool(shuffled)
-      }
+      setPool(m === "random5" ? shuffled.slice(0, 5) : shuffled)
       setCurrentIndex(0)
       setIsLoading(false)
     } catch (e) {
@@ -98,10 +90,8 @@ export default function QuizStartPage() {
     }
 
     setStreak((s) => s + 1)
-    // Advance sequentially; pool has unique items
     const nextIdx = currentIndex + 1
     if (nextIdx >= pool.length) {
-      // Ran out of questions: end as perfect streak
       submitUnlimited(nextCorrectList)
     } else {
       setCurrentIndex(nextIdx)
@@ -112,7 +102,6 @@ export default function QuizStartPage() {
     setIsSubmitting(true)
     try {
       const supabase = createClient()
-
       const questionsAnswered = pool.map((q, i) => ({
         question_id: q.id,
         question: q.question,
@@ -121,26 +110,22 @@ export default function QuizStartPage() {
         is_correct: finalAnswers[i] === q.correct_answer,
       }))
       const score = questionsAnswered.filter((qa) => qa.is_correct).length
-
       const { error } = await supabase
         .from("quiz_attempts")
         .insert({
-        phone_number: phoneNumber,
-        score,
-        total_questions: pool.length,
-        questions_answered: questionsAnswered,
-        mode: "random5",
-      }, { returning: "minimal" })
+          phone_number: phoneNumber,
+          score,
+          total_questions: pool.length,
+          questions_answered: questionsAnswered,
+          mode: "random5",
+        }, { returning: "minimal" })
       if (error) throw error
 
-      sessionStorage.setItem(
-        "quiz_result",
-        JSON.stringify({ mode: "random5", score, total: pool.length, questions: questionsAnswered }),
-      )
+      sessionStorage.setItem("quiz_result", JSON.stringify({ mode: "random5", score, total: pool.length, questions: questionsAnswered }))
       router.push("/quiz/result")
     } catch (e) {
       console.error("Error submitting quiz:", e)
-      alert("퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.")
+      alert("퀴즈 제출 중 오류가 발생했습니다. 다시 시도해 주세요.")
     } finally {
       setIsSubmitting(false)
     }
@@ -150,7 +135,6 @@ export default function QuizStartPage() {
     setIsSubmitting(true)
     try {
       const supabase = createClient()
-
       const answered = correctAnswers.map((ans, idx) => {
         const q = pool[idx]
         return {
@@ -162,26 +146,21 @@ export default function QuizStartPage() {
         }
       })
       const streakScore = answered.length
-
       const { error } = await supabase
         .from("quiz_attempts")
         .insert({
-        phone_number: phoneNumber,
-        score: streakScore,
-        total_questions: streakScore,
-        questions_answered: answered,
-        mode: "unlimited",
-      }, { returning: "minimal" })
+          phone_number: phoneNumber,
+          score: streakScore,
+          total_questions: streakScore,
+          questions_answered: answered,
+          mode: "unlimited",
+        }, { returning: "minimal" })
       if (error) throw error
 
-      sessionStorage.setItem(
-        "quiz_result",
-        JSON.stringify({ mode: "unlimited", score: streakScore, total: streakScore, questions: answered }),
-      )
+      sessionStorage.setItem("quiz_result", JSON.stringify({ mode: "unlimited", score: streakScore, total: streakScore, questions: answered }))
       router.push("/quiz/result")
     } catch (e) {
       console.error("Error submitting unlimited quiz:", e)
-      // Proceed to result screen even if DB insert fails
       const answered = correctAnswers.map((ans, idx) => {
         const q = pool[idx]
         return {
@@ -193,10 +172,7 @@ export default function QuizStartPage() {
         }
       })
       const streakScore = answered.length
-      sessionStorage.setItem(
-        "quiz_result",
-        JSON.stringify({ mode: "unlimited", score: streakScore, total: streakScore, questions: answered }),
-      )
+      sessionStorage.setItem("quiz_result", JSON.stringify({ mode: "unlimited", score: streakScore, total: streakScore, questions: answered }))
       router.push("/quiz/result")
     } finally {
       setIsSubmitting(false)
@@ -205,11 +181,11 @@ export default function QuizStartPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-          className="w-16 h-16 border-4 border-white border-t-transparent rounded-full"
+          className="w-16 h-16 border-4 border-[var(--soft-accent)] border-t-transparent rounded-full"
         />
       </div>
     )
@@ -220,22 +196,30 @@ export default function QuizStartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent p-4">
+    <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto pt-8">
         {/* Progress / Streak */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
           {mode === "random5" ? (
             <>
               <div className="flex justify-between items-center mb-2">
-                <span className="text-white font-medium">
+                <span className="font-medium" style={{color:"var(--soft-text)"}}>
                   문제 {currentIndex + 1} / {pool.length}
                 </span>
-                <span className="text-white font-medium">{Math.round(progress)}%</span>
+                <span className="font-medium" style={{color:"var(--soft-text)"}}>{Math.round(progress)}%</span>
               </div>
-              <Progress value={progress} className="h-3 bg-white/20" />
+              <div className="soft-progress" style={{ ["--value" as any]: `${progress}%` }}>
+                <div className="bar" />
+                <div className="handle" />
+              </div>
+              <div className="mt-2 soft-dots">
+                {pool.map((_, i) => (
+                  <span key={i} className={`dot ${i === currentIndex ? 'is-active' : ''}`} />
+                ))}
+              </div>
             </>
           ) : (
-            <div className="text-center text-white font-semibold">연속 정답 {streak}개</div>
+            <div className="text-center font-semibold" style={{color:"var(--soft-text)"}}>연속 정답 {streak}개</div>
           )}
         </motion.div>
 
@@ -248,11 +232,11 @@ export default function QuizStartPage() {
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="shadow-playful border-0 bg-white/95 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-xl font-bold text-gray-800">{currentQuestion.question}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
+            <div className="neu-surface neu-convex question-card">
+              <div className="mb-4">
+                <div className="question-text">{currentQuestion.question}</div>
+              </div>
+              <div className="space-y-3">
                 {[
                   { key: "A", text: currentQuestion.option_a },
                   { key: "B", text: currentQuestion.option_b },
@@ -264,37 +248,37 @@ export default function QuizStartPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleAnswerSelect(option.key)}
-                    className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
-                      selectedAnswer === option.key
-                        ? "border-quiz-primary bg-quiz-primary/10 shadow-playful"
-                        : "border-gray-200 hover:border-quiz-secondary bg-white hover:bg-quiz-secondary/5"
-                    }`}
+                    role="radio"
+                    aria-pressed={selectedAnswer === option.key}
+                    aria-checked={selectedAnswer === option.key}
+                    className={`option neu-btn ${selectedAnswer === option.key ? 'neu-concave is-selected' : 'neu-convex'}`}
                   >
-                    <span className="font-semibold text-quiz-primary mr-3">{option.key}.</span>
-                    <span className="text-gray-700">{option.text}</span>
+                    <span className="key mr-3">{option.key}.</span>
+                    <span className="label">{option.text}</span>
                   </motion.button>
                 ))}
 
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: selectedAnswer ? 1 : 0.5 }} className="pt-4">
-                  <Button
+                  <button
                     onClick={handleNext}
                     disabled={!selectedAnswer || isSubmitting}
-                    className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="neu-btn neu-btn--primary neu-convex cta-primary w-full disabled:cursor-not-allowed"
                   >
                     {isSubmitting
                       ? "제출 중..."
                       : mode === "random5"
                         ? currentIndex === pool.length - 1
-                          ? "지금 퀴즈 완료하기"
-                          : "▶️ 다음 문제"
-                        : "▶️ 확인 / 다음"}
-                  </Button>
+                          ? "제출 및 결과 보기"
+                          : "다음 문제"
+                        : "확인 / 다음"}
+                  </button>
                 </motion.div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
     </div>
   )
 }
+
