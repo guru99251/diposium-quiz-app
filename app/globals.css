@@ -434,6 +434,17 @@
   pointer-events: none;
 }
 
+/* Override page-local utility backgrounds to let global gradient show */
+/* Common translucent backgrounds used in pages → make transparent */
+.bg-white\/95, .bg-white\/90,
+.bg-amber-500\/10, .bg-sky-500\/10, .bg-pink-500\/10 { background-color: transparent !important; }
+
+/* Remove per-page gradient backgrounds so the global moving gradient is visible */
+.bg-gradient-to-br { background: transparent !important; background-image: none !important; }
+
+/* Ensure cards keep borders even if class "border-0" is present */
+[data-slot="card"].border-0 { border-width: 1px !important; }
+
 /* Force all text and button labels to white */
 :root {
   --foreground: #ffffff;

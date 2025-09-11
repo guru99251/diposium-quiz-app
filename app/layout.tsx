@@ -31,7 +31,7 @@ export default function RootLayout({
         <Suspense
           fallback={
             <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-teal-400 flex items-center justify-center">
-              <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-16 h-16 animate-spin"></div>
             </div>
           }
         >
