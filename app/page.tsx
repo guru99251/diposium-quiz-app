@@ -11,51 +11,51 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 text-balance drop-shadow-lg">🎁 디포지엄 QUIZ! 🎁</h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 text-balance drop-shadow-lg"> 디포지엄</h1>
           <p className="text-xl text-white/90 text-pretty max-w-2xl mx-auto drop-shadow">
-            두근두근 재미있는 퀴즈!<br></br>자신의 상식, 전공지식, 그리고 운빨을 테스트해보세요!
+            운영진을 위한 관리 페이지입니다. <br></br>자신의 상식, 전공지식, 그리고 운빨을 테스트해보세요!
           </p>
         </div>
 
         {/* Main Actions */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
           {/* User Quiz Card */}
-          <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 hover:scale-105 bg-white/95 backdrop-blur-sm">
+          <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-600 hover:scale-101 bg-white/95 backdrop-blur-sm">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-sky-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <QrCode className="w-8 h-8 text-sky-500" />
+                <QrCode className="w-8 h-8"/>
               </div>
-              <CardTitle className="text-2xl text-sky-500">퀴즈 참여하기</CardTitle>
+              <CardTitle className="text-2xl">퀴즈 참여하기</CardTitle>
               <CardDescription className="text-lg">QR 코드를 스캔하거나<br></br>주소로 접속해 시작하세요.</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
               <Link href="/quiz" prefetch={false}>
                 <Button
                   size="lg"
-                  className="w-full text-lg py-6 rounded-xl bg-sky-600 hover:bg-sky-700 transition-all duration-300 hover:scale-105 shadow-playful hover:shadow-playful-hover text-white border-0"
+                  className="w-80 text-lg py-6 bg-sky-500/10 hover:bg-sky-700/10 rounded-full transition-all duration-100 hover:scale-105 text-white"
                 >
-                  퀴즈 시작하기 🚀
+                  퀴즈 시작하기
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
           {/* Admin Card */}
-          <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 hover:scale-105 bg-white/95 backdrop-blur-sm">
+          <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-600 hover:scale-101 bg-white/95 backdrop-blur-sm">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Settings className="w-8 h-8 text-amber-500" />
+                <Settings className="w-8 h-8"/>
               </div>
-              <CardTitle className="text-2xl text-amber-500">관리자 모드</CardTitle>
+              <CardTitle className="text-2xl">관리자 모드</CardTitle>
               <CardDescription className="text-lg">문제 관리와 참여 현황 보기<br></br> (운영진만)</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
               <Link href="/admin" prefetch={false}>
                 <Button
                   size="lg"
-                  className="w-full text-lg py-6 rounded-xl bg-amber-600 hover:bg-amber-700 transition-all duration-300 hover:scale-105 shadow-playful hover:shadow-playful-hover text-white border-0"
+                  className="w-80 text-lg py-6 bg-amber-500/10 hover:bg-amber-700/10 rounded-full transition-all duration-100 hover:scale-105 text-white"
                 >
-                  관리자로 로그인 ⚙️
+                  관리자로 로그인
                 </Button>
               </Link>
             </CardContent>
