@@ -143,7 +143,7 @@ export default function QuizEntryPage() {
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-80 py-4 text-lg font-semibold bg-gradient-to-r shadow-playful hover:shadow-playful-hover transition-all duration-600 rounded-full transform hover:scale-102"
+                    className="w-80 py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover hover:scale-102"
                   >
                     {isLoading ? "확인 중..." : "다음: 모드 선택"}
                   </Button>
