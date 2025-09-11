@@ -4,6 +4,8 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Suspense } from "react"
 import "./globals.css"
+import GradientBackground from "@/components/GradientBackground"
+import { Montserrat } from "@/lib/fonts"
 
 export const metadata: Metadata = {
   title: "v0 App",
@@ -24,7 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} ${Montserrat.variable}`}>
+        <GradientBackground />
         <Suspense
           fallback={
             <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-teal-400 flex items-center justify-center">
@@ -32,7 +35,7 @@ export default function RootLayout({
             </div>
           }
         >
-          {children}
+          <div className="relative z-10">{children}</div>
         </Suspense>
       </body>
     </html>

@@ -13,6 +13,20 @@
 }
 
 :root {
+  /* From Design examples/Main Guide Component.md */
+  --color-bg1: rgb(8, 10, 15);
+  --color-bg2: rgb(0, 17, 32);
+  --color1: 18, 113, 255;
+  --color2: 107, 74, 255;
+  --color3: 100, 100, 255;
+  --color4: 50, 160, 220;
+  --color5: 80, 47, 122;
+  --color-interactive: 140, 100, 255;
+  --circle-size: 80%;
+  --blending: hard-light;
+}
+
+:root {
   /* ——— Lux-Modern palette (OKLCH) ——— */
   --background: oklch(0.985 0.01 95);         /* soft warm white */
   --foreground: oklch(0.22 0 0);              /* deep charcoal */
@@ -191,38 +205,17 @@
 
   body {
     @apply text-foreground bg-background;
-    /* Background from Design examples/01 (neon glass) */
-    background: #08090d !important;
-    background-image:
-      url('/images/abstract-light.jpg'),
-      linear-gradient(to right in oklab, hsl(var(--hue2) 50% 75%), hsl(var(--hue1) 50% 75%)) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-blend-mode: hard-light !important;
+    /* Prefer next/font variable; fallback to system */
+    font-family: var(--font-montserrat), var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji" !important;
+    color: #FFF; /* Main Guide text tone */
+    background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+    /* Keep vertical scrolling; avoid horizontal overflow */
+    overflow-x: hidden;
   }
 
-  /* Homepage uses same neon/glass background */
-  body:has([data-quiz-homepage]) {
-    background: #08090d !important;
-    background-image:
-      url('/images/abstract-light.jpg'),
-      linear-gradient(to right in oklab, hsl(var(--hue2) 50% 75%), hsl(var(--hue1) 50% 75%)) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-blend-mode: hard-light !important;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    body {
-      background: #08090d !important;
-      background-image:
-        url('/images/abstract-light.jpg'),
-        linear-gradient(to right in oklab, hsl(var(--hue2) 50% 75%), hsl(var(--hue1) 50% 75%)) !important;
-      background-size: cover !important;
-      background-position: center !important;
-      background-blend-mode: hard-light !important;
-    }
-  }
+  h1, h2, h3 { font-family: var(--font-montserrat), var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; font-weight: 700; }
+  h1 { font-size: 3rem; margin-bottom: 16px; }
+  p { line-height: 1.6; }
 }
 
 /* ——— Components: subtle glass & motion-ready ——— */
@@ -269,16 +262,214 @@
 
   /* Neon-glass cards (applies globally to shadcn cards) */
   [data-slot="card"] {
-    background:
-      linear-gradient(235deg, hsl(var(--hue1) 50% 10% / 0.60), hsl(var(--hue1) 50% 10% / 0) 33%),
-      linear-gradient(45deg , hsl(var(--hue2) 50% 10% / 0.60), hsl(var(--hue2) 50% 10% / 0) 33%),
-      linear-gradient(hsl(220deg 25% 4.8% / 0.50)) !important;
-    background-color: transparent !important;
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: var(--glass-border) solid var(--glass-border-color);
-    box-shadow:
-      hsl(var(--hue2) 50% 2%) 0px 10px 16px -8px,
-      hsl(var(--hue2) 50% 4%) 0px 20px 36px -14px;
+    position: relative;
+    background: oklch(0 0 0 / 0.15) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid oklch(1 0 0 / 0.12);
+    box-shadow: 0 4px 90px rgba(0,0,0,0.1);
+    overflow: hidden;
   }
+
+  /* top light line like Main Guide .card:before */
+  [data-slot="card"]::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 34%, rgba(255,255,255,1) 89%, rgba(255,255,255,0) 100%);
+    opacity: 0.3;
+    filter: blur(.5px);
+    mix-blend-mode: hard-light;
+    pointer-events: none;
+  }
+
+  /* ensure content stacks above noise overlay */
+  [data-slot="card"] > * { position: relative; z-index: 3; }
 }
+
+/* Gradient background from Design examples/Main Guide Component.md */
+.gradient-bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none; /* keep app fully interactive */
+}
+
+.gradient-bg .svgBlur { display: none; }
+/* Remove background noise per request */
+.gradient-bg .noiseBg { display: none !important; opacity: 0 !important; }
+
+.gradient-bg .noiseBg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  mix-blend-mode: soft-light;
+  opacity: 0.3;
+}
+
+.gradient-bg .gradients-container {
+  filter: url(#goo) blur(40px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes moveInCircle {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes moveVertical {
+  0% { transform: translateY(-50%); }
+  50% { transform: translateY(50%); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes moveHorizontal {
+  0% { transform: translateX(-50%) translateY(-10%); }
+  50% { transform: translateX(50%) translateY(10%); }
+  100% { transform: translateX(-50%) translateY(-10%); }
+}
+
+.gradient-bg .g1,
+.gradient-bg .g2,
+.gradient-bg .g3,
+.gradient-bg .g4,
+.gradient-bg .g5,
+.gradient-bg .interactive {
+  position: absolute;
+  mix-blend-mode: var(--blending);
+}
+
+.gradient-bg .g1 {
+  background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  top: calc(50% - var(--circle-size) / 2);
+  left: calc(50% - var(--circle-size) / 2);
+  transform-origin: center center;
+  animation: moveVertical 30s ease infinite;
+  opacity: 1;
+}
+
+.gradient-bg .g2 {
+  background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  top: calc(50% - var(--circle-size) / 2);
+  left: calc(50% - var(--circle-size) / 2);
+  transform-origin: calc(50% - 400px);
+  animation: moveInCircle 20s reverse infinite;
+  opacity: 1;
+}
+
+.gradient-bg .g3 {
+  background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  top: calc(50% - var(--circle-size) / 2 + 200px);
+  left: calc(50% - var(--circle-size) / 2 - 500px);
+  transform-origin: calc(50% + 400px);
+  animation: moveInCircle 40s linear infinite;
+  opacity: 1;
+}
+
+.gradient-bg .g4 {
+  background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  top: calc(50% - var(--circle-size) / 2);
+  left: calc(50% - var(--circle-size) / 2);
+  transform-origin: calc(50% - 200px);
+  animation: moveHorizontal 40s ease infinite;
+  opacity: 0.7;
+}
+
+.gradient-bg .g5 {
+  background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
+  width: calc(var(--circle-size) * 2);
+  height: calc(var(--circle-size) * 2);
+  top: calc(50% - var(--circle-size));
+  left: calc(50% - var(--circle-size));
+  transform-origin: calc(50% - 800px) calc(50% + 200px);
+  animation: moveInCircle 20s ease infinite;
+  opacity: 1;
+}
+
+.gradient-bg .interactive {
+  background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
+  width: 100%;
+  height: 100%;
+  top: -50%;
+  left: -50%;
+  opacity: 0.7;
+}
+
+/* Card "noise" overlay similar to Main Guide .card .noise */
+[data-slot="card"] .card-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  display: none;
+  pointer-events: none;
+}
+
+/* Force all text and button labels to white */
+:root {
+  --foreground: #ffffff;
+  --card-foreground: #ffffff;
+  --popover-foreground: #ffffff;
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #ffffff;
+  --muted-foreground: #ffffff;
+  --accent-foreground: #ffffff;
+  --destructive-foreground: #ffffff;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent-foreground: #ffffff;
+}
+
+.dark {
+  --foreground: #ffffff;
+  --card-foreground: #ffffff;
+  --popover-foreground: #ffffff;
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #ffffff;
+  --muted-foreground: #ffffff;
+  --accent-foreground: #ffffff;
+  --destructive-foreground: #ffffff;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent-foreground: #ffffff;
+}
+
+/* Ensure variants like link/ghost still render white text */
+[data-slot="button"],
+[data-slot="button"] *,
+button, button *,
+a[role="button"], a[role="button"] * {
+  color: #ffffff !important;
+}
+
+/* Force all text across the app to white */
+html, body, body * { color: #ffffff !important; }
