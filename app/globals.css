@@ -323,5 +323,64 @@
   }
   [data-slot="card-title"] { color: var(--soft-text) !important; }
   [data-slot="card-description"] { color: var(--soft-text-muted) !important; }
+
+  /* Admin/All pages soft background wrapper */
+  .soft-admin { background: var(--soft-bg) !important; }
+
+  /* Unify buttons into soft UI across app (shadcn button uses data-slot=button) */
+  [data-slot="button"] {
+    background: var(--soft-bg) !important;
+    border: none !important;
+    border-radius: var(--soft-radius) !important;
+    color: var(--soft-text) !important;
+    box-shadow: 8px 8px 16px var(--soft-shadow-dark), -8px -8px 16px var(--soft-shadow-light) !important;
+    transition: transform var(--soft-duration) var(--soft-ease), box-shadow var(--soft-duration) var(--soft-ease);
+  }
+  [data-slot="button"]:hover { transform: translateY(-1px); }
+  [data-slot="button"]:active { transform: translateY(0); box-shadow: inset 6px 6px 12px var(--soft-shadow-dark), inset -6px -6px 12px var(--soft-shadow-light) !important; }
+  [data-slot="button"][data-size="icon"] { width: 40px; height: 40px; border-radius: 999px !important; padding: 0; display: inline-grid; place-items: center; }
+  [data-slot="button"] svg { vertical-align: middle; }
+
+  /* Accentful buttons to reduce monotony */
+  :root {
+    --soft-accent-2: #a16bd2; /* purple */
+    --soft-accent-3: #4fb08b; /* teal/green */
+    --soft-accent-4: #f0a24b; /* orange */
+    --soft-danger: #e76f51;  /* soft red */
+  }
+
+  [data-slot="button"][data-accent="primary"] {
+    background: var(--soft-accent) !important;
+    color: var(--soft-accent-contrast) !important;
+    box-shadow: 10px 10px 18px rgba(163,177,198,0.7), -8px -8px 16px rgba(255,255,255,0.9) !important;
+  }
+  [data-slot="button"][data-accent="secondary"] {
+    background: var(--soft-accent-2) !important;
+    color: #fff !important;
+    box-shadow: 10px 10px 18px rgba(163,177,198,0.7), -8px -8px 16px rgba(255,255,255,0.9) !important;
+  }
+  [data-slot="button"][data-accent="success"] {
+    background: var(--soft-accent-3) !important;
+    color: #fff !important;
+  }
+  [data-slot="button"][data-accent="warning"] {
+    background: var(--soft-accent-4) !important;
+    color: #3b2e1b !important;
+  }
+  [data-slot="button"][data-variant="destructive"] {
+    background: var(--soft-danger) !important;
+    color: #fff !important;
+    box-shadow: 10px 10px 18px rgba(163,177,198,0.3), -8px -8px 16px rgba(255,255,255,0.9) !important;
+  }
+
+  /* Inputs/textarea/select triggers softened */
+  [data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"] {
+    background: var(--soft-bg) !important;
+    border: none !important;
+    border-radius: var(--soft-radius) !important;
+    color: var(--soft-text) !important;
+    box-shadow: inset 6px 6px 12px var(--soft-shadow-dark), inset -6px -6px 12px var(--soft-shadow-light) !important;
+  }
+  [data-slot="input"]::placeholder, [data-slot="textarea"]::placeholder { color: color-mix(in oklab, var(--soft-text), white 55%) !important; }
 }
 

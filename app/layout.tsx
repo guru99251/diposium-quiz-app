@@ -41,7 +41,7 @@ export default function RootLayout({
             </div>
           </div>
         </header>
-        <main style={{ maxWidth: 720, marginInline: "auto", padding: "16px" }}>
+        <main style={{ maxWidth: "1200px", marginInline: "auto", padding: "16px 24px" }}>
           <Suspense
             fallback={
               <div className="min-h-[60dvh] flex items-center justify-center">
