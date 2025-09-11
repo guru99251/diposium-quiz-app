@@ -134,11 +134,11 @@ export default function QuizEntryPage() {
                   </motion.div>
                 )}
 
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.5 }}>
+                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.5 }} className="text-center">
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover transform hover:scale-105"
+                    className="w-80 py-4 text-lg font-semibold bg-gradient-to-r shadow-playful hover:shadow-playful-hover transition-all duration-600 rounded-full transform hover:scale-102"
                   >
                     {isLoading ? "확인 중..." : "다음: 모드 선택"}
                   </Button>
@@ -239,13 +239,13 @@ export default function QuizEntryPage() {
                 </div>
 
                 {error && (
-                  <div className="text-red-500 text-sm bg-red-50 p-3 rounded-lg border border-red-200 text-center">
+                  <div>
                     {error}
                   </div>
                 )}
 
                 <div className="text-center">
-                  <Button variant="outline" onClick={() => setStep("phone")} className="bg-white/70 border-gray-300">
+                  <Button variant="outline" onClick={() => setStep("phone")} className="py-4 font-semibold bg-gradient-to-r shadow-playful hover:shadow-playful-hover transition-all duration-600 rounded-full transform hover:scale-102">
                     ‹ 전화번호 다시 입력
                   </Button>
                 </div>
@@ -258,9 +258,9 @@ export default function QuizEntryPage() {
               transition={{ delay: 0.6, duration: 0.5 }}
               className="mt-6 text-center text-sm text-gray-500 space-y-1"
             >
-              <em>🚀 퀴즈는 모드별로 <strong>1회씩</strong> 참여할 수 있어요!</em>
+              <em>퀴즈는 모드별로 **1회씩** 참여할 수 있어요!</em>
               <br></br>
-              <em>🚀 전화번호는 중복 참여 방지를 위해서만 사용됩니다.</em>
+              <em>전화번호는 중복 참여 방지를 위해서만 사용됩니다.</em>
             </motion.div>
           </CardContent>
         </Card>

@@ -69,9 +69,9 @@ export default function QuizResultPage() {
 
   const getScoreMessage = () => {
     if (isUnlimited) {
-      if (result.score >= 10) return "당신은 고수..혹은 금손..! 연속 10개 이상 정답!"
-      if (result.score >= 5) return "오오! 대단해요! 연속 5개 정답!"
-      if (result.score >= 3) return "아쉽네요..ㅜ"
+      if (result.score >= 10) return "당신은 고수..혹은 금손..!"
+      if (result.score >= 5) return "오오! 대단해요!"
+      if (result.score >= 3) return "아쉽네요.."
       return "고생하셨어요!"
     }
     if (percentage >= 80) return "정말 잘했어요!"
