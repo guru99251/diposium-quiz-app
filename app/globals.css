@@ -445,6 +445,44 @@
 /* Ensure cards keep borders even if class "border-0" is present */
 [data-slot="card"].border-0 { border-width: 1px !important; }
 
+/* Stronger depth shadows for cards and buttons */
+[data-slot="card"] {
+  box-shadow:
+    0 30px 60px -20px rgba(0,0,0,0.55),
+    0 18px 36px -24px rgba(0,0,0,0.45),
+    0 1px 0 0 rgba(255,255,255,0.06) inset !important;
+}
+
+[data-slot="button"], button {
+  box-shadow:
+    0 18px 40px -12px rgba(0,0,0,0.55),
+    0 1px 0 0 rgba(255,255,255,0.06) inset;
+}
+[data-slot="button"]:hover,
+[data-slot="button"]:focus-visible,
+button:hover,
+button:focus-visible {
+  box-shadow:
+    0 24px 60px -16px rgba(0,0,0,0.65),
+    0 1px 0 0 rgba(255,255,255,0.08) inset;
+}
+
+/* Shadow utilities used in pages */
+.shadow-playful {
+  box-shadow:
+    0 24px 60px -18px rgba(0,0,0,0.55),
+    0 10px 24px -16px rgba(0,0,0,0.45) !important;
+}
+.shadow-playful-hover {
+  box-shadow:
+    0 30px 72px -20px rgba(0,0,0,0.65),
+    0 12px 28px -16px rgba(0,0,0,0.55) !important;
+}
+
+/* Ensure card noise overlay remains hidden */
+[data-slot="card"] .card-noise { opacity: 0 !important; display: none !important; }
+[data-slot="card"].border-0 { border-width: 1px !important; }
+
 /* Force all text and button labels to white */
 :root {
   --foreground: #ffffff;
@@ -484,3 +522,31 @@ a[role="button"], a[role="button"] * {
 
 /* Force all text across the app to white */
 html, body, body * { color: #ffffff !important; }
+
+/* Subtle white glow behind buttons on hover (transparent background) */
+[data-slot="button"], button {
+  position: relative;
+  background-color: transparent !important;
+  transition: box-shadow 180ms ease, transform 120ms ease;
+  z-index: 1;
+}
+
+[data-slot="button"]::after, button::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), rgba(255,255,255,0) 65%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+  z-index: -1; /* behind the button */
+  filter: blur(6px);
+}
+
+[data-slot="button"]:hover::after,
+[data-slot="button"]:focus-visible::after,
+button:hover::after,
+button:focus-visible::after {
+  opacity: 1;
+}

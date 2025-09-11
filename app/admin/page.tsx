@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
 import { motion } from "framer-motion"
-import { BookOpen, BarChart3, Users, Plus } from "lucide-react"
+import { BookOpen, BarChart3, Users, Plus, ArrowLeft } from "lucide-react"
 
 interface DashboardStats {
   totalQuestions: number
@@ -186,7 +186,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/questions" prefetch={false}>
-                  <Button className="w-full bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
+                  <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     문제 관리하기
                   </Button>
                 </Link>
@@ -205,7 +205,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/statistics" prefetch={false}>
-                  <Button className="w-full bg-gradient-to-r from-quiz-secondary to-quiz-accent hover:from-quiz-accent hover:to-quiz-secondary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover text-white">
+                  <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     통계 보기
                   </Button>
                 </Link>
@@ -224,7 +224,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/questions/new" prefetch={false}>
-                  <Button className="w-full bg-gradient-to-r from-quiz-accent to-quiz-primary hover:from-quiz-primary hover:to-quiz-accent transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover text-white">
+                  <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     문제 추가하기
                   </Button>
                 </Link>
@@ -243,7 +243,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="text-center">
                 <Link href="/admin/categories" prefetch={false}>
-                  <Button className="w-full bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
+                  <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     유형 관리하기
                   </Button>
                 </Link>
@@ -255,8 +255,11 @@ export default function AdminDashboard() {
         {/* Back to Home */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="text-center mt-8">
           <Link href="/" prefetch={false}>
-            <Button variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-              홈으로 돌아가기
+            <Button
+              variant="outline"
+              className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" /> 홈으로 돌아가기
             </Button>
           </Link>
         </motion.div>

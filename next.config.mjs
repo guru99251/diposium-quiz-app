@@ -11,6 +11,13 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // Set UTF-8 and language headers for all app routes
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "Content-Language", value: "ko" },
+        ],
+      },
       {
         source: "/:all*(svg|jpg|jpeg|png|gif|webp|ico|css|js|woff|woff2)",
         headers: [
