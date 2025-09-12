@@ -119,7 +119,7 @@ export default function QuizEntryPage() {
                     placeholder="010-1234-5678"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="text-lg py-3 border-2 border-gray-200 focus:border-quiz-primary rounded-xl bg-transparent"
+                    className="text-lg py-3 border-2 border-gray-200 focus:border-quiz-primary rounded-xl"
                     required
                   />
                 </motion.div>
@@ -166,7 +166,7 @@ export default function QuizEntryPage() {
                     onClick={() => handleSelectMode("random5")}
                     className="
                           relative rounded-2xl p-5 text-left text-white
-                          bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600
+                          bg-[linear-gradient(90deg,#7e22ce,#6366f1,#7e22ce)]
                           bg-[length:200%_100%] bg-[position:0%_0%]
                           transition-[background-position,colors,box-shadow,transform] duration-500
                           hover:bg-[position:100%_0%] hover:brightness-105 active:brightness-95
@@ -175,17 +175,12 @@ export default function QuizEntryPage() {
                           focus:outline-none focus-visible:ring-4 focus-visible:ring-white/15
                           focus-visible:from-purple-800 focus-visible:via-purple-700 focus-visible:to-indigo-800
 
-                          shadow-playful hover:shadow-playful-hover
-                          disabled:opacity-60 disabled:cursor-not-allowed
-
                           before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:pointer-events-none
                           before:p-[2px] before:opacity-0 focus-visible:before:opacity-100
                           before:transition-opacity before:duration-300
                           before:bg-[linear-gradient(90deg,#7e22ce,#6366f1,#7e22ce)]
                           before:bg-[length:200%_100%] before:bg-[position:0%_0%]
                           focus-visible:before:bg-[position:100%_0%] transition-[background-position]
-                          before:[-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)]
-                          before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]
                         "
                   >
                     <div className="text-xl font-extrabold">무작위 5문제</div>
@@ -200,7 +195,7 @@ export default function QuizEntryPage() {
                     onClick={() => handleSelectMode("unlimited")}
                     className="
                         relative rounded-2xl p-5 text-left text-white
-                        bg-gradient-to-r from-orange-500 via-orange-400 to-pink-600
+                        bg-[linear-gradient(90deg,#fb923c,#ec4899,#fb923c)]
                         bg-[length:200%_100%] bg-[position:0%_0%]
                         transition-[background-position,colors,box-shadow,transform] duration-500
                         hover:bg-[position:100%_0%] hover:brightness-105 active:brightness-95
@@ -209,17 +204,12 @@ export default function QuizEntryPage() {
                         focus:outline-none focus-visible:ring-4 focus-visible:ring-white/15
                         focus-visible:from-orange-600 focus-visible:via-orange-500 focus-visible:to-pink-600
 
-                        shadow-playful hover:shadow-playful-hover
-                        disabled:opacity-60 disabled:cursor-not-allowed
-
                         before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:pointer-events-none
                         before:p-[2px] before:opacity-0 focus-visible:before:opacity-100
                         before:transition-opacity before:duration-300
                         before:bg-[linear-gradient(90deg,#fb923c,#ec4899,#fb923c)]
                         before:bg-[length:200%_100%] before:bg-[position:0%_0%]
                         focus-visible:before:bg-[position:100%_0%] transition-[background-position]
-                        before:[-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)]
-                        before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]
                       "
                   >
                     <div className="text-xl font-extrabold">질문 무제한</div>
@@ -236,7 +226,7 @@ export default function QuizEntryPage() {
                 <div className="text-center">
                   <Button
                     onClick={() => setStep("phone")}
-                    className="w-80 py-4 text-lg font-semibold bg-gradient-to-r shadow-playful hover:shadow-playful-hover transition-all duration-600 rounded-full transform hover:scale-102"
+                    className="w-80 text-lg font-semibold transition-all duration-600 rounded-xl transform hover:scale-102"
                   >
                     ‹ 전화번호 다시 입력
                   </Button>

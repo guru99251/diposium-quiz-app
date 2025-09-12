@@ -10,6 +10,11 @@
   --glass-radius: 22px;
   --glass-border: 1px;
   --glass-border-color: hsl(var(--hue2) 12% 20%);
+  --card-shadow: 
+    0 4px 90px rgba(0, 0, 0, 0.1),
+    0 30px 60px -20px rgba(0,0,0,0.55),
+    0 18px 36px -24px rgba(0,0,0,0.45),
+    0 1px 0 0 rgba(255,255,255,0.06) inset;
 }
 
 :root {
@@ -447,10 +452,7 @@
 
 /* Stronger depth shadows for cards and buttons */
 [data-slot="card"] {
-  box-shadow:
-    0 30px 60px -20px rgba(0,0,0,0.55),
-    0 18px 36px -24px rgba(0,0,0,0.45),
-    0 1px 0 0 rgba(255,255,255,0.06) inset !important;
+  box-shadow: var(--card-shadow) !important;
 }
 
 [data-slot="button"], button {
@@ -481,6 +483,19 @@ button:focus-visible {
 
 /* Ensure card noise overlay remains hidden */
 [data-slot="card"] .card-noise { opacity: 0 !important; display: none !important; }
+
+/* Card global enhancements: ice-glass background + depth + shadows */
+[data-slot="card"] {
+  box-sizing: border-box !important;
+  z-index: 2;
+  /* Ice glass: very transparent white + blur/saturate */
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) saturate(120%);
+  /* Text subtle shadow for depth */
+  text-shadow: -8px -10px 15px rgba(0, 0, 0, 0.2);
+  /* Add requested long soft shadow; keep layered depth */
+  box-shadow: var(--card-shadow) !important;
+}
 [data-slot="card"].border-0 { border-width: 1px !important; }
 
 /* Force all text and button labels to white */
@@ -537,7 +552,8 @@ html, body, body * { color: #ffffff !important; }
   inset: -10px;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), rgba(255,255,255,0) 65%);
+  background: radial-gradient(circle at 50% 80%, rgba(255,255,255,0.2), rgba(255,255,255,0) 100%);
+  border: 8px solid rgba(255,255,255,0.05);
   opacity: 0;
   transition: opacity 180ms ease;
   z-index: -1; /* behind the button */
