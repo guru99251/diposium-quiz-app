@@ -159,12 +159,12 @@ export default function QuestionsManagePage() {
                   <label className="text-sm font-medium bg-transparent text-gray-700 mb-2 block" >문제 유형</label>
                   <Select value={selectedType} onValueChange={setSelectedType}>
                     <SelectTrigger>
-                      <SelectValue placeholder="유형 선택" />
+                      <SelectValue placeholder="유형 선택"  />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">전체</SelectItem>
                       {questionTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id}>
+                        <SelectItem key={type.id} value={type.id} className="bg-gray-900/50">
                           {type.name}
                         </SelectItem>
                       ))}
@@ -226,22 +226,22 @@ export default function QuestionsManagePage() {
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "A" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
+                        className={`p-2 rounded ${question.correct_answer === "A" ? "font-bold bg-green-200/30 border border-green-300/20 shadow-playful" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">A.</span> {question.option_a}
                       </div>
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "B" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
+                        className={`p-2 rounded ${question.correct_answer === "B" ? "font-bold bg-green-200/30 border border-green-300/20 shadow-playful" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">B.</span> {question.option_b}
                       </div>
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "C" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
+                        className={`p-2 rounded ${question.correct_answer === "C" ? "font-bold bg-green-200/30 border border-green-300/20 shadow-playful" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">C.</span> {question.option_c}
                       </div>
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "D" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
+                        className={`p-2 rounded ${question.correct_answer === "D" ? "font-bold bg-green-200/30 border border-green-300/20 shadow-playful" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">D.</span> {question.option_d}
                       </div>
