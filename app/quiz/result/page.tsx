@@ -140,7 +140,7 @@ export default function QuizResultPage() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.3 }}
-                  className={`p-4 rounded-lg border-2 ${q.is_correct ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`}
+                  className={`p-4 rounded-lg border-2 ${q.is_correct ? "border-green-200/20 bg-green-50/20" : "border-red-200/20 bg-red-50/20"}`}
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">{q.is_correct ? "✅" : "❌"}</span>
