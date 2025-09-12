@@ -156,7 +156,7 @@ export default function QuestionsManagePage() {
                   </div>
                 </div>
                 <div className="w-full md:w-48">
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">문제 유형</label>
+                  <label className="text-sm font-medium bg-transparent text-gray-700 mb-2 block" >문제 유형</label>
                   <Select value={selectedType} onValueChange={setSelectedType}>
                     <SelectTrigger>
                       <SelectValue placeholder="유형 선택" />
@@ -193,7 +193,7 @@ export default function QuestionsManagePage() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 bg-white/95 backdrop-blur-sm">
+                <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 bg-white/10 backdrop-blur-sm">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -216,7 +216,7 @@ export default function QuestionsManagePage() {
                           size="sm"
                           variant="outline"
                           onClick={() => deleteQuestion(question.id)}
-                          className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                          className="border-red-500 text-red-500 bg-red-400/10 hover:bg-red-500/20 hover:text-red-950/10 transition-all duration-300"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -226,22 +226,22 @@ export default function QuestionsManagePage() {
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "A" ? "bg-green-100 border border-green-300" : "bg-gray-50"}`}
+                        className={`p-2 rounded ${question.correct_answer === "A" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">A.</span> {question.option_a}
                       </div>
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "B" ? "bg-green-100 border border-green-300" : "bg-gray-50"}`}
+                        className={`p-2 rounded ${question.correct_answer === "B" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">B.</span> {question.option_b}
                       </div>
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "C" ? "bg-green-100 border border-green-300" : "bg-gray-50"}`}
+                        className={`p-2 rounded ${question.correct_answer === "C" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">C.</span> {question.option_c}
                       </div>
                       <div
-                        className={`p-2 rounded ${question.correct_answer === "D" ? "bg-green-100 border border-green-300" : "bg-gray-50"}`}
+                        className={`p-2 rounded ${question.correct_answer === "D" ? "bg-green-50/20 border border-green-300/20" : "bg-red-400/5"}`}
                       >
                         <span className="font-semibold text-quiz-primary">D.</span> {question.option_d}
                       </div>

@@ -91,7 +91,7 @@ export default function CategoriesPage() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="md:col-span-1">
-                <Label htmlFor="name">이름 *</Label>
+                <Label htmlFor="name">이름 * <br></br></Label>
                 <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="예: 디지털콘텐츠학과" />
               </div>
               {/* <div className="md:col-span-2">
@@ -124,7 +124,7 @@ export default function CategoriesPage() {
                       <div className="font-medium text-gray-800">{t.name}</div>
                       {t.description ? <div className="text-sm text-gray-500">{t.description}</div> : null}
                     </div>
-                    <Button variant="outline" className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white" onClick={() => removeType(t.id)}>
+                    <Button variant="outline" className="border-red-500 text-red-500 bg-red-400/10 hover:bg-red-500/20 hover:text-red-950/10 transition-all duration-300" onClick={() => removeType(t.id)}>
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>

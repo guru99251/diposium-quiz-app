@@ -245,7 +245,7 @@ export default function StatisticsPage() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.7 + index * 0.05 }}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                        className="flex items-center justify-between p-3 bg-gray-200/10 rounded-lg"
                       >
                         <div>
                           <div className="font-medium text-gray-800">{formatPhoneNumber(attempt.phone_number)}</div>

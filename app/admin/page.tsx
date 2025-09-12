@@ -157,7 +157,7 @@ export default function AdminDashboard() {
               {stats.unlimitedTop.length > 0 ? (
                 <div className="space-y-2">
                   {stats.unlimitedTop.map((row, idx) => (
-                    <div key={row.phone_number + idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={row.phone_number + idx} className="flex items-center justify-between p-3 bg-gray-200/10 rounded-lg">
                       <div className="flex items-center gap-3">
                         <span className="w-6 text-center text-gray-600 font-semibold">{idx + 1}</span>
                         <span className="font-medium text-gray-800">{row.phone_number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}</span>

@@ -286,8 +286,8 @@ export default function QuizStartPage() {
                       : mode === "random5"
                         ? currentIndex === pool.length - 1
                           ? "지금 퀴즈 완료하기"
-                          : "→ 다음 문제"
-                        : "→ 확인 / 다음"}
+                          : "다음 문제 →"
+                        : "확인 / 다음 →"}
                   </Button>
                 </motion.div>
               </CardContent>
