@@ -49,7 +49,7 @@ export default function EditQuestionPage() {
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const selectItemClassName = "text-gray-900 data-[highlighted]:bg-gray-100 data-[highlighted]:text-gray-900 focus:bg-gray-100 focus:text-gray-900 data-[state=checked]:bg-gray-100 data-[state=checked]:text-gray-900"
+  const selectItemClassName = "!text-black data-[highlighted]:bg-gray-100 data-[highlighted]:!text-black focus:bg-gray-100 focus:!text-black data-[state=checked]:bg-gray-100 data-[state=checked]:!text-black"
 
   useEffect(() => {
     if (!id) return
