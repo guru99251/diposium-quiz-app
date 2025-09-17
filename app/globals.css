@@ -218,7 +218,7 @@
   /* Neon-glass cards (applies globally to shadcn cards) */
   [data-slot="card"] {
     position: relative;
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.01) !important;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-radius: 8px;
