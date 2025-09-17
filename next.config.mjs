@@ -5,47 +5,49 @@ const require = createRequire(import.meta.url)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
-  webpack(config) {
-    const threeEntryPath = require.resolve("three")
-    const threeDir = path.dirname(threeEntryPath)
-    const threeModulePath = path.join(threeDir, "three.module.js")
+    // Optional: gives you a readable build ID you can reuse in markup/assets.
+    generateBuildId: () =>
+      process.env.VERCEL_GIT_COMMIT_SHA ?? Date.now().toString(),
 
-    config.resolve = config.resolve || {}
-    config.resolve.alias = config.resolve.alias || {}
-
-    if (!config.resolve.alias["three$"]) {
-      config.resolve.alias["three$"] = threeModulePath
-    }
-
-    return config
-  },
   async headers() {
     return [
-      // Set UTF-8 and language headers for all app routes
       {
-        source: "/(.*)",
+        // All application routes (HTML/SSR). Exclude static asset folders.
+        source: '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)',
         headers: [
-          { key: "Content-Language", value: "ko" },
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
         ],
       },
       {
-        source: "/:all*(svg|jpg|jpeg|png|gif|webp|ico|css|js|woff|woff2)",
+        // Next chunk/js/css assets (already hashed).
+        source: '/_next/static/(.*)',
         headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
-    ]
+      {
+        // Optimized image loader responses.
+        source: '/_next/image',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400, must-revalidate' },
+        ],
+      },
+      {
+        // Fonts or other imported assets emitted by webpack into /_next/static/media.
+        source: '/_next/static/media/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
+        // If you serve anything from /public (logos, etc.), version them.
+        source: '/public/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ];
   },
-}
+};
 
-export default nextConfig
-
+export default nextConfig;

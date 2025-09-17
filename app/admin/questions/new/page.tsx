@@ -79,7 +79,7 @@ export default function NewQuestionPage() {
       const supabase = createClient()
       const { error } = await supabase
         .from("questions")
-        .insert([formData], { returning: "minimal" })
+        .insert([formData])
       if (error) throw error
       router.push("/admin/questions")
     } catch (error) {
