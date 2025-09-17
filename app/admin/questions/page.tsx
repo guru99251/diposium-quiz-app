@@ -37,6 +37,8 @@ export default function QuestionsManagePage() {
   const [selectedType, setSelectedType] = useState<string>("all")
   const [isLoading, setIsLoading] = useState(true)
 
+  const selectItemClassName = "text-gray-900 focus:bg-gray-100 focus:text-gray-900 data-[state=checked]:bg-gray-100 data-[state=checked]:text-gray-900"
+
   useEffect(() => {
     loadData()
   }, [])
@@ -158,13 +160,13 @@ export default function QuestionsManagePage() {
                 <div className="w-full md:w-48">
                   <label className="text-sm font-medium bg-transparent text-gray-700 mb-2 block" >문제 유형</label>
                   <Select value={selectedType} onValueChange={setSelectedType}>
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-white text-gray-900">
                       <SelectValue placeholder="유형 선택"  />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">전체</SelectItem>
+                    <SelectContent className="bg-white text-gray-900">
+                      <SelectItem value="all" className={selectItemClassName}>전체</SelectItem>
                       {questionTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id} className="bg-gray-900/50">
+                        <SelectItem key={type.id} value={type.id} className={selectItemClassName}>
                           {type.name}
                         </SelectItem>
                       ))}

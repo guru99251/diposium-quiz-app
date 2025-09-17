@@ -34,6 +34,7 @@ export default function NewQuestionPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const selectItemClassName = "text-gray-900 focus:bg-gray-100 focus:text-gray-900 data-[state=checked]:bg-gray-100 data-[state=checked]:text-gray-900"
 
   useEffect(() => {
     loadQuestionTypes()
@@ -124,12 +125,12 @@ export default function NewQuestionPage() {
                     문제 유형 *
                   </Label>
                   <Select value={formData.type_id} onValueChange={(value) => handleInputChange("type_id", value)}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full bg-white text-gray-900">
                       <SelectValue placeholder="문제 유형을 선택하세요" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white text-gray-900">
                       {questionTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id}>
+                        <SelectItem key={type.id} value={type.id} className={selectItemClassName}>
                           {type.name}
                         </SelectItem>
                       ))}
@@ -205,14 +206,14 @@ export default function NewQuestionPage() {
                     정답 *
                   </Label>
                   <Select value={formData.correct_answer} onValueChange={(value) => handleInputChange("correct_answer", value)}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full bg-white text-gray-900">
                       <SelectValue placeholder="정답을 선택하세요" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="A">A</SelectItem>
-                      <SelectItem value="B">B</SelectItem>
-                      <SelectItem value="C">C</SelectItem>
-                      <SelectItem value="D">D</SelectItem>
+                    <SelectContent className="bg-white text-gray-900">
+                      <SelectItem value="A" className={selectItemClassName}>A</SelectItem>
+                      <SelectItem value="B" className={selectItemClassName}>B</SelectItem>
+                      <SelectItem value="C" className={selectItemClassName}>C</SelectItem>
+                      <SelectItem value="D" className={selectItemClassName}>D</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

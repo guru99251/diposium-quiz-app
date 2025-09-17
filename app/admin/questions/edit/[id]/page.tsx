@@ -49,6 +49,8 @@ export default function EditQuestionPage() {
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const selectItemClassName = "text-gray-900 focus:bg-gray-100 focus:text-gray-900 data-[state=checked]:bg-gray-100 data-[state=checked]:text-gray-900"
+
   useEffect(() => {
     if (!id) return
     const supabase = createClient()
@@ -148,12 +150,12 @@ export default function EditQuestionPage() {
               <div className="space-y-2">
                 <Label className="text-base font-medium">문제 유형</Label>
                 <Select value={formData.type_id} onValueChange={(v) => handleInputChange("type_id", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white text-gray-900">
                     <SelectValue placeholder="유형 선택" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white text-gray-900">
                     {questionTypes.map((type) => (
-                      <SelectItem key={type.id} value={type.id}>
+                      <SelectItem key={type.id} value={type.id} className={selectItemClassName}>
                         {type.name}
                       </SelectItem>
                     ))}
@@ -222,14 +224,14 @@ export default function EditQuestionPage() {
               <div className="space-y-2">
                 <Label className="text-base font-medium">정답</Label>
                 <Select value={formData.correct_answer} onValueChange={(v) => handleInputChange("correct_answer", v)}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full bg-white text-gray-900">
                     <SelectValue placeholder="정답 선택" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="A">A</SelectItem>
-                    <SelectItem value="B">B</SelectItem>
-                    <SelectItem value="C">C</SelectItem>
-                    <SelectItem value="D">D</SelectItem>
+                  <SelectContent className="bg-white text-gray-900">
+                    <SelectItem value="A" className={selectItemClassName}>A</SelectItem>
+                    <SelectItem value="B" className={selectItemClassName}>B</SelectItem>
+                    <SelectItem value="C" className={selectItemClassName}>C</SelectItem>
+                    <SelectItem value="D" className={selectItemClassName}>D</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
