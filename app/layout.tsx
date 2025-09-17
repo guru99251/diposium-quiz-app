@@ -3,9 +3,11 @@ import type { Metadata, Viewport } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Suspense } from "react"
+import dynamic from "next/dynamic"
 import "./globals.css"
-import GradientBackground from "@/components/GradientBackground"
 import { Montserrat } from "@/lib/fonts"
+
+const GradientBackground = dynamic(() => import("@/components/GradientBackground"), { ssr: false })
 
 export const metadata: Metadata = {
   title: "v0 App",
@@ -41,3 +43,8 @@ export default function RootLayout({
     </html>
   )
 }
+
+
+
+
+

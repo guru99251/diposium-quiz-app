@@ -1,3 +1,8 @@
+import path from "path"
+import { createRequire } from "module"
+
+const require = createRequire(import.meta.url)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -8,6 +13,20 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+  },
+  webpack(config) {
+    const threeEntryPath = require.resolve("three")
+    const threeDir = path.dirname(threeEntryPath)
+    const threeModulePath = path.join(threeDir, "three.module.js")
+
+    config.resolve = config.resolve || {}
+    config.resolve.alias = config.resolve.alias || {}
+
+    if (!config.resolve.alias["three$"]) {
+      config.resolve.alias["three$"] = threeModulePath
+    }
+
+    return config
   },
   async headers() {
     return [
@@ -29,3 +48,4 @@ const nextConfig = {
 }
 
 export default nextConfig
+

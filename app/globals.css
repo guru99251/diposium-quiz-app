@@ -566,3 +566,13 @@ button:hover::after,
 button:focus-visible::after {
   opacity: 1;
 }
+.metaball-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.metaball-background canvas {
+  pointer-events: none !important;
+}
