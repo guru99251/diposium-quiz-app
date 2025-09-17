@@ -26,7 +26,7 @@
   --circle-size: 80%;
   --blending: hard-light;
 
-  /* ——— Lux-Modern palette (OKLCH) ——— */
+  /* ?�—�?Lux-Modern palette (OKLCH) ?�—�?*/
   --background: oklch(0.985 0.01 95);         /* soft warm white */
   --foreground: oklch(0.22 0 0);              /* deep charcoal */
 
@@ -55,7 +55,7 @@
   --input: oklch(0.98 0 0);
   --ring: oklch(0.68 0.18 265);               /* primary, slightly deeper */
 
-  /* Chart palette — balanced, non-toyish */
+  /* Chart palette ??balanced, non-toyish */
   --chart-1: oklch(0.68 0.18 265); /* cobalt */
   --chart-2: oklch(0.70 0.12 305); /* iris */
   --chart-3: oklch(0.70 0.12 155); /* emerald */
@@ -173,7 +173,7 @@
   p { line-height: 1.6; }
 }
 
-/* ——— Components: subtle glass & motion-ready ——— */
+/* ?�—�?Components: subtle glass & motion-ready ?�—�?*/
 @layer components {
   .glass {
     background: var(--surface);
@@ -218,7 +218,7 @@
   /* Neon-glass cards (applies globally to shadcn cards) */
   [data-slot="card"] {
     position: relative;
-    background: oklch(0 0 0 / 0.15) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-radius: 8px;
@@ -390,7 +390,7 @@
 }
 
 /* Override page-local utility backgrounds to let global gradient show */
-/* Common translucent backgrounds used in pages → make transparent */
+/* Common translucent backgrounds used in pages ??make transparent */
 .bg-white\/95, .bg-white\/90,
 .bg-amber-500\/10, .bg-sky-500\/10, .bg-pink-500\/10 { background-color: transparent !important; }
 
@@ -438,8 +438,8 @@ button:focus-visible {
 [data-slot="card"] {
   box-sizing: border-box !important;
   z-index: 2;
-  /* Ice glass: very transparent white + blur/saturate */
-  background: rgba(255, 255, 255, 0.08) !important;
+  /* Ice glass: 10% transparent white + blur/saturate */
+  background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(10px) saturate(120%);
   /* Text subtle shadow for depth */
   text-shadow: -6px 3px 3px rgba(0, 0, 0, 0.2);
@@ -526,3 +526,6 @@ button:focus-visible::after {
 .metaball-background canvas {
   pointer-events: none !important;
 }
+
+
+
