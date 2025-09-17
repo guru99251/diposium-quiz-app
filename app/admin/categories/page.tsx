@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,10 @@ interface QuestionType {
 }
 
 export default function CategoriesPage() {
-  const supabase = createClient()
+  const isSupabaseConfigured =
+    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) && Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+
+  const supabase = useMemo(() => (isSupabaseConfigured ? createClient() : null), [isSupabaseConfigured])
   const router = useRouter()
   const [types, setTypes] = useState<QuestionType[]>([])
   const [name, setName] = useState("")
@@ -27,6 +30,12 @@ export default function CategoriesPage() {
   const [saving, setSaving] = useState(false)
 
   const load = async () => {
+    if (!supabase) {
+      setTypes([])
+      setLoading(false)
+      return
+    }
+
     try {
       const { data } = await supabase.from("question_types").select("*").order("name")
       setTypes(data || [])
@@ -36,18 +45,29 @@ export default function CategoriesPage() {
   }
 
   useEffect(() => {
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
     load()
-  }, [])
+  }, [supabase])
 
   const addType = async () => {
     if (!name.trim()) return
+    if (!supabase) {
+      alert("Supabase environment variables are missing.")
+      return
+    }
     setSaving(true)
     try {
       const payload: any = { name: name.trim() }
       if (desc.trim()) payload.description = desc.trim()
+      // insert 후 생성된 행이 필요하면 .select()를 체인하고 data를 활용하세요.
       const { error } = await supabase
         .from("question_types")
-        .insert(payload, { returning: "minimal" })
+        .insert(payload)
+
       if (error) throw error
       setName("")
       setDesc("")
@@ -62,6 +82,10 @@ export default function CategoriesPage() {
 
   const removeType = async (id: string) => {
     if (!confirm("정말 이 문제 유형을 삭제하시겠습니까? 관련 문제가 있다면 함께 삭제될 수 있습니다.")) return
+    if (!supabase) {
+      alert("Supabase environment variables are missing.")
+      return
+    }
     try {
       const { error } = await supabase.from("question_types").delete().eq("id", id)
       if (error) throw error

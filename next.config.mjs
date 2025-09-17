@@ -5,10 +5,9 @@ const require = createRequire(import.meta.url)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
     // Optional: gives you a readable build ID you can reuse in markup/assets.
-    generateBuildId: () => process.env.VERCEL_GIT_COMMIT_SHA ?? Date.now().toString(),
-  },
+    generateBuildId: () =>
+      process.env.VERCEL_GIT_COMMIT_SHA ?? Date.now().toString(),
 
   async headers() {
     return [
