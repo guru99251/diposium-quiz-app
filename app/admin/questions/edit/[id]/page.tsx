@@ -49,7 +49,7 @@ export default function EditQuestionPage() {
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const selectItemClassName = "!text-black data-[highlighted]:bg-gray-100 data-[highlighted]:!text-black focus:bg-gray-100 focus:!text-black data-[state=checked]:bg-gray-100 data-[state=checked]:!text-black"
+  const selectItemClassName = "focus:!bg-black focus:!text-white data-[highlighted]:!bg-black data-[highlighted]:!text-white data-[state=checked]:!bg-black data-[state=checked]:!text-white"
 
   useEffect(() => {
     if (!id) return
@@ -150,7 +150,7 @@ export default function EditQuestionPage() {
               <div className="space-y-2">
                 <Label className="text-base font-medium">문제 유형</Label>
                 <Select value={formData.type_id} onValueChange={(v) => handleInputChange("type_id", v)}>
-                  <SelectTrigger className="bg-white text-gray-900">
+                  <SelectTrigger className="bg-black text-white border-white/50 focus-visible:border-white focus-visible:ring-white/50">
                     <SelectValue placeholder="유형 선택" />
                   </SelectTrigger>
                   <SelectContent className="bg-white text-gray-900">
@@ -224,10 +224,10 @@ export default function EditQuestionPage() {
               <div className="space-y-2">
                 <Label className="text-base font-medium">정답</Label>
                 <Select value={formData.correct_answer} onValueChange={(v) => handleInputChange("correct_answer", v)}>
-                  <SelectTrigger className="w-full  text-black">
+                  <SelectTrigger className="w-full bg-black text-white border-white/50 focus-visible:border-white focus-visible:ring-white/50">
                     <SelectValue placeholder="정답 선택" />
                   </SelectTrigger>
-                  <SelectContent className= "text-black">
+                  <SelectContent className="bg-white text-gray-900">
                     <SelectItem value="A" className={selectItemClassName}>A</SelectItem>
                     <SelectItem value="B" className={selectItemClassName}>B</SelectItem>
                     <SelectItem value="C" className={selectItemClassName}>C</SelectItem>
@@ -263,4 +263,3 @@ export default function EditQuestionPage() {
     </div>
   )
 }
-
