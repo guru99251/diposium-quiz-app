@@ -160,10 +160,10 @@ export default function QuestionsManagePage() {
                 <div className="w-full md:w-48">
                   <label className="text-sm font-medium bg-transparent text-gray-700 mb-2 block" >문제 유형</label>
                   <Select value={selectedType} onValueChange={setSelectedType}>
-                    <SelectTrigger className="bg-black text-gray-900">
+                    <SelectTrigger className=" text-black">
                       <SelectValue placeholder="유형 선택"  />
                     </SelectTrigger>
-                    <SelectContent className="bg-black text-gray-900">
+                    <SelectContent className=" text-black">
                       <SelectItem value="all" className={selectItemClassName}>전체</SelectItem>
                       {questionTypes.map((type) => (
                         <SelectItem key={type.id} value={type.id} className={selectItemClassName}>

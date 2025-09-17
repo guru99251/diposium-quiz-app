@@ -206,10 +206,10 @@ export default function NewQuestionPage() {
                     정답 *
                   </Label>
                   <Select value={formData.correct_answer} onValueChange={(value) => handleInputChange("correct_answer", value)}>
-                    <SelectTrigger className="w-full bg-white text-gray-900">
+                    <SelectTrigger className="w-full text-black">
                       <SelectValue placeholder="정답을 선택하세요" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white text-gray-900">
+                    <SelectContent className="text-black">
                       <SelectItem value="A" className={selectItemClassName}>A</SelectItem>
                       <SelectItem value="B" className={selectItemClassName}>B</SelectItem>
                       <SelectItem value="C" className={selectItemClassName}>C</SelectItem>
