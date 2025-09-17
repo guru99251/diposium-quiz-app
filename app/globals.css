@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 /* Design variables from Design examples/01 */
 :root {
   --hue1: 255;
@@ -15,9 +13,7 @@
     0 30px 60px -20px rgba(0,0,0,0.55),
     0 18px 36px -24px rgba(0,0,0,0.45),
     0 1px 0 0 rgba(255,255,255,0.06) inset;
-}
 
-:root {
   /* From Design examples/Main Guide Component.md */
   --color-bg1: rgb(8, 10, 15);
   --color-bg2: rgb(0, 17, 32);
@@ -29,9 +25,7 @@
   --color-interactive: 140, 100, 255;
   --circle-size: 80%;
   --blending: hard-light;
-}
 
-:root {
   /* ——— Lux-Modern palette (OKLCH) ——— */
   --background: oklch(0.985 0.01 95);         /* soft warm white */
   --foreground: oklch(0.22 0 0);              /* deep charcoal */
@@ -94,50 +88,6 @@
   --color-quiz-primary: var(--primary);
   --color-quiz-secondary: var(--secondary);
   --color-quiz-accent: var(--accent);
-}
-
-.dark {
-  /* Deep slate with a hint of blue for luxury feel */
-  --background: oklch(0.17 0.02 255);
-  --foreground: oklch(0.96 0.01 95);
-
-  --card: oklch(0.19 0.02 255 / 0.6);
-  --card-foreground: var(--foreground);
-
-  --popover: oklch(0.20 0.02 255 / 0.7);
-  --popover-foreground: var(--foreground);
-
-  --primary: oklch(0.75 0.20 265);          /* brighter for dark bg */
-  --primary-foreground: oklch(0.14 0.02 255);
-
-  --secondary: oklch(0.72 0.14 305);
-  --secondary-foreground: oklch(0.14 0.02 255);
-
-  --muted: oklch(0.28 0.02 255);
-  --muted-foreground: oklch(0.74 0.03 95);
-
-  --accent: oklch(0.74 0.14 155);
-  --accent-foreground: oklch(0.14 0.02 255);
-
-  --destructive: oklch(0.66 0.22 28);
-  --destructive-foreground: oklch(0.14 0.02 255);
-
-  --border: oklch(0.28 0.02 255);
-  --input: oklch(0.24 0.02 255);
-  --ring: oklch(0.80 0.20 265);
-
-  --sidebar: oklch(0.15 0.02 255);
-  --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: oklch(0.14 0.02 255);
-  --sidebar-accent: oklch(0.22 0.02 255);
-  --sidebar-accent-foreground: var(--foreground);
-  --sidebar-border: oklch(0.24 0.02 255);
-  --sidebar-ring: var(--ring);
-
-  --surface: oklch(0.16 0.02 255 / 0.55);
-  --elevated: oklch(0.18 0.02 255 / 0.7);
-  --overlay: oklch(0.14 0.02 255 / 0.45);
 }
 
 /* Map tokens to Tailwind theme vars */
