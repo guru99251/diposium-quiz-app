@@ -273,9 +273,6 @@ export default function ExhibitionDashboardPage() {
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-white drop-shadow-lg">전시용 대시보드</h1>
-            <p className="mt-2 text-white/90 drop-shadow">
-              실시간 성과와 순위를 한눈에 확인하세요. "5개 퀴즈 모드"가 메인입니다.
-            </p>
           </div>
           <Link href="/admin">
             <Button variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
@@ -291,12 +288,11 @@ export default function ExhibitionDashboardPage() {
           transition={{ delay: 0.2 }}
           className="mt-6"
         >
-          <Card className="border-0 bg-white/95 backdrop-blur-sm shadow-playful">
+          <Card className="border-0 bg-white/95 backdrop-blur-sm shadow-playful mr-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl text-quiz-primary">
                 <Flame className="h-6 w-6 text-quiz-accent" /> 실시간 하이라이트
               </CardTitle>
-              <CardDescription>전시 공간에서 시선을 사로잡을 핵심 메시지를 구성했습니다.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
