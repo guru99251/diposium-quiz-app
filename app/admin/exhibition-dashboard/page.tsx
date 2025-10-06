@@ -286,11 +286,11 @@ export default function ExhibitionDashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-6"
+          className="mt-6 mb-5"
         >
           <Card className="border-0 bg-white/95 backdrop-blur-sm shadow-playful mr-2">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl text-quiz-primary">
+            <CardHeader className="items-center text-center">
+              <CardTitle className="flex items-center justify-center gap-2 text-xl text-quiz-primary">
                 <Flame className="h-6 w-6 text-quiz-accent" /> 실시간 하이라이트
               </CardTitle>
             </CardHeader>
@@ -412,7 +412,14 @@ export default function ExhibitionDashboardPage() {
                           <YAxis yAxisId="left" stroke="#F97316" allowDecimals={false} />
                           <YAxis yAxisId="right" orientation="right" stroke="#6366F1" domain={[0, 5]} allowDecimals />
                           <Tooltip
-                            contentStyle={{ borderRadius: "12px", border: "1px solid #e5e7eb" }}
+                            contentStyle={{
+                              borderRadius: "12px",
+                              border: "1px solid #e5e7eb",
+                              backgroundColor: "rgba(15, 23, 42, 0.9)",
+                              color: "#F9FAFB",
+                            }}
+                            labelStyle={{ color: "#F9FAFB" }}
+                            itemStyle={{ color: "#F9FAFB" }}
                             formatter={(value: number, name) => {
                               if (name === "perfectCount") {
                                 return [`${value}명`, "만점자"]
@@ -487,7 +494,14 @@ export default function ExhibitionDashboardPage() {
                         <XAxis type="number" stroke="#6b7280" />
                         <YAxis type="category" dataKey="phone" width={120} stroke="#6b7280" />
                         <Tooltip
-                          contentStyle={{ borderRadius: "12px", border: "1px solid #e5e7eb" }}
+                          contentStyle={{
+                              borderRadius: "12px",
+                              border: "1px solid #e5e7eb",
+                              backgroundColor: "rgba(15, 23, 42, 0.9)",
+                              color: "#F9FAFB",
+                            }}
+                            labelStyle={{ color: "#F9FAFB" }}
+                            itemStyle={{ color: "#F9FAFB" }}
                           formatter={(value: number) => [`${value}점`, "점수"]}
                         />
                         <Bar dataKey="score" radius={[0, 12, 12, 0]}>
