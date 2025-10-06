@@ -89,9 +89,40 @@ export default function ExhibitionDashboardPage() {
   })
   const [trendData, setTrendData] = useState<TrendDatum[]>([])
   const [showCelebration, setShowCelebration] = useState(false)
+  const [celebrationPhone, setCelebrationPhone] = useState<string | null>(null)
 
-  const loadDashboardData = useCallback(async () => {
-    setIsLoading(true)
+  const triggerCelebration = useCallback(
+    (attempt?: QuizAttempt | null) => {
+      if (!attempt || attempt.mode !== "random5") {
+        return
+      }
+
+      if (attempt.score < attempt.total_questions) {
+        return
+      }
+
+      if (celebrationTimeout.current) {
+        clearTimeout(celebrationTimeout.current)
+      }
+
+      const maskedPhone = maskPhoneNumber(attempt.phone_number)
+
+      setCelebrationPhone(maskedPhone)
+      setShowCelebration(true)
+
+      celebrationTimeout.current = setTimeout(() => {
+        setShowCelebration(false)
+        setCelebrationPhone(null)
+      }, 4000)
+    },
+    [maskPhoneNumber, setCelebrationPhone, setShowCelebration],
+  )
+
+  const loadDashboardData = useCallback(async (options?: { showLoader?: boolean }) => {
+    const shouldShowLoader = options?.showLoader ?? true
+    if (shouldShowLoader) {
+      setIsLoading(true)
+    }
     try {
       const { data: attempts } = await supabase
         .from("quiz_attempts")
@@ -200,22 +231,35 @@ export default function ExhibitionDashboardPage() {
       .channel("exhibition-dashboard")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "quiz_attempts", filter: "mode=eq.random5" },
+        { event: "INSERT", schema: "public", table: "quiz_attempts" },
         (payload) => {
-          const attempt = payload.new as QuizAttempt
-          if (!attempt) return
+          const attempt = payload.new as QuizAttempt | null
+          triggerCelebration(attempt)
+          loadDashboardData({ showLoader: false })
+        },
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "quiz_attempts" },
+        (payload) => {
+          const newAttempt = payload.new as QuizAttempt | null
+          const oldAttempt = payload.old as QuizAttempt | null
 
-          if (attempt.score >= attempt.total_questions) {
-            if (celebrationTimeout.current) {
-              clearTimeout(celebrationTimeout.current)
-            }
-            setShowCelebration(true)
-            celebrationTimeout.current = setTimeout(() => {
-              setShowCelebration(false)
-            }, 1000)
+          const newIsPerfect = newAttempt && newAttempt.score >= newAttempt.total_questions
+          const oldIsPerfect = oldAttempt && oldAttempt.score >= oldAttempt.total_questions
+
+          if (newIsPerfect && !oldIsPerfect) {
+            triggerCelebration(newAttempt)
           }
 
-          loadDashboardData()
+          loadDashboardData({ showLoader: false })
+        },
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "quiz_attempts" },
+        () => {
+          loadDashboardData({ showLoader: false })
         },
       )
       .subscribe()
@@ -226,7 +270,7 @@ export default function ExhibitionDashboardPage() {
       }
       supabase.removeChannel(channel)
     }
-  }, [supabase, loadDashboardData])
+  }, [supabase, loadDashboardData, triggerCelebration])
 
   if (isLoading) {
     return (
@@ -243,27 +287,25 @@ export default function ExhibitionDashboardPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent p-4">
       <AnimatePresence>
-        {showCelebration && (
+        {showCelebration && celebrationPhone && (
           <motion.div
             key="celebration"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
-            className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center"
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -80, opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="pointer-events-none fixed top-6 left-1/2 z-30 w-full max-w-xl -translate-x-1/2 px-4"
           >
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="rounded-3xl bg-white/90 px-10 py-6 text-center shadow-playful"
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="flex items-center justify-center gap-2 rounded-2xl border border-quiz-primary/20 bg-white/95 px-6 py-4 text-lg font-semibold text-quiz-primary shadow-playful backdrop-blur-sm"
             >
-              <div className="flex items-center justify-center gap-3 text-2xl font-bold text-quiz-primary">
-                <Sparkles className="h-8 w-8 text-quiz-accent" />
-                새로운 만점자가 탄생했습니다!
-                <Sparkles className="h-8 w-8 text-quiz-accent" />
-              </div>
+              <Sparkles className="h-6 w-6 text-quiz-accent" />
+              {`${celebrationPhone}님 축하합니다!`}
+              <Sparkles className="h-6 w-6 text-quiz-accent" />
             </motion.div>
           </motion.div>
         )}
