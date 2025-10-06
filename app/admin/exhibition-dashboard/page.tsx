@@ -285,6 +285,46 @@ export default function ExhibitionDashboardPage() {
           </Link>
         </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mt-6"
+        >
+          <Card className="border-0 bg-white/95 backdrop-blur-sm shadow-playful">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-xl text-quiz-primary">
+                <Flame className="h-6 w-6 text-quiz-accent" /> 실시간 하이라이트
+              </CardTitle>
+              <CardDescription>전시 공간에서 시선을 사로잡을 핵심 메시지를 구성했습니다.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="rounded-2xl bg-gradient-to-br from-quiz-primary to-quiz-secondary p-6 text-white shadow-playful">
+                  <div className="text-sm text-white/80">현재까지 만점자</div>
+                  <div className="mt-2 text-4xl font-bold">{fiveStats.perfectCount.toLocaleString()}명</div>
+                  <p className="mt-2 text-sm text-white/80">5개 퀴즈 모드를 정복한 참가자 수</p>
+                </div>
+                <div className="rounded-2xl bg-gradient-to-br from-quiz-secondary to-quiz-accent p-6 text-white shadow-playful">
+                  <div className="text-sm text-white/80">무제한 모드 최고 점수</div>
+                  <div className="mt-2 text-4xl font-bold">{unlimitedStats.highestScore}점</div>
+                  <p className="mt-2 text-sm text-white/80">끊임없이 도전한 참가자들의 정점</p>
+                </div>
+                <div className="rounded-2xl bg-white/95 p-6 shadow-inner">
+                  <div className="text-sm text-gray-500">만점자 비율</div>
+                  <div className="mt-2 text-4xl font-bold text-quiz-secondary">
+                    {fiveStats.totalParticipants > 0
+                      ? Math.round((fiveStats.perfectCount / fiveStats.totalParticipants) * 1000) / 10
+                      : 0}
+                    %
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500">참여자 중 만점자 비율</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -468,45 +508,6 @@ export default function ExhibitionDashboardPage() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-6"
-        >
-          <Card className="border-0 bg-white/95 backdrop-blur-sm shadow-playful">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl text-quiz-primary">
-                <Flame className="h-6 w-6 text-quiz-accent" /> 실시간 하이라이트
-              </CardTitle>
-              <CardDescription>전시 공간에서 시선을 사로잡을 핵심 메시지를 구성했습니다.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-2xl bg-gradient-to-br from-quiz-primary to-quiz-secondary p-6 text-white shadow-playful">
-                  <div className="text-sm text-white/80">현재까지 만점자</div>
-                  <div className="mt-2 text-4xl font-bold">{fiveStats.perfectCount.toLocaleString()}명</div>
-                  <p className="mt-2 text-sm text-white/80">5개 퀴즈 모드를 정복한 참가자 수</p>
-                </div>
-                <div className="rounded-2xl bg-gradient-to-br from-quiz-secondary to-quiz-accent p-6 text-white shadow-playful">
-                  <div className="text-sm text-white/80">무제한 모드 최고 점수</div>
-                  <div className="mt-2 text-4xl font-bold">{unlimitedStats.highestScore}점</div>
-                  <p className="mt-2 text-sm text-white/80">끊임없이 도전한 참가자들의 정점</p>
-                </div>
-                <div className="rounded-2xl bg-white/95 p-6 shadow-inner">
-                  <div className="text-sm text-gray-500">만점자 비율</div>
-                  <div className="mt-2 text-4xl font-bold text-quiz-secondary">
-                    {fiveStats.totalParticipants > 0
-                      ? Math.round((fiveStats.perfectCount / fiveStats.totalParticipants) * 1000) / 10
-                      : 0}
-                    %
-                  </div>
-                  <p className="mt-2 text-sm text-gray-500">참여자 중 만점자 비율</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
     </div>
   )
