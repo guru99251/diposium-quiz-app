@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
 import { motion } from "framer-motion"
-import { BookOpen, BarChart3, Users, Plus, ArrowLeft } from "lucide-react"
+import { BookOpen, BarChart3, Users, Plus, ArrowLeft, Sparkles } from "lucide-react"
 
 interface DashboardStats {
   totalQuestions: number
@@ -207,6 +207,25 @@ export default function AdminDashboard() {
                 <Link href="/admin/statistics" prefetch={false}>
                   <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     통계 보기
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}>
+            <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 hover:scale-105 bg-white/95 backdrop-blur-sm">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-quiz-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-8 h-8 text-quiz-accent" />
+                </div>
+                <CardTitle className="text-xl text-quiz-accent">전시용 대시보드</CardTitle>
+                <CardDescription>실시간 전시 화면 열기</CardDescription>
+              </CardHeader>
+              <CardContent className="text-center">
+                <Link href="/admin/display-dashboard" prefetch={false}>
+                  <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
+                    대시보드 보기
                   </Button>
                 </Link>
               </CardContent>

@@ -28,3 +28,9 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## Local development
+
+1. Copy `.env.development.example` to `.env.development.local` and fill in your Supabase credentials.
+2. Install dependencies if you have not already: `npm install`.
+3. Run the development server with `npm run dev`. The script loads values from `.env.development.local`, `.env.local`, `.env.development`, and `.env` (in that priority order) before starting Next.js.
