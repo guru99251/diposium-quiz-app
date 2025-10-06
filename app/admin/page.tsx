@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
 import { motion } from "framer-motion"
-import { BookOpen, BarChart3, Users, Plus, ArrowLeft } from "lucide-react"
+import { BookOpen, BarChart3, Users, Plus, ArrowLeft, Sparkles } from "lucide-react"
 
 interface DashboardStats {
   totalQuestions: number
@@ -29,6 +29,15 @@ export default function AdminDashboard() {
   useEffect(() => {
     loadDashboardStats()
   }, [])
+
+  const maskPhoneNumber = (phone?: string | null) => {
+    if (!phone) {
+      return "010-xxxx-0000"
+    }
+    const digits = phone.replace(/\D/g, "")
+    const lastFour = digits.slice(-4).padStart(4, "0")
+    return `010-xxxx-${lastFour}`
+  }
 
   const loadDashboardStats = async () => {
     try {
@@ -160,7 +169,7 @@ export default function AdminDashboard() {
                     <div key={row.phone_number + idx} className="flex items-center justify-between p-3 bg-gray-200/10 rounded-lg">
                       <div className="flex items-center gap-3">
                         <span className="w-6 text-center text-gray-600 font-semibold">{idx + 1}</span>
-                        <span className="font-medium text-gray-800">{row.phone_number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}</span>
+                        <span className="font-medium text-gray-800">{maskPhoneNumber(row.phone_number)}</span>
                       </div>
                       <div className="text-quiz-primary font-bold">{row.score}점</div>
                     </div>
@@ -188,6 +197,25 @@ export default function AdminDashboard() {
                 <Link href="/admin/questions" prefetch={false}>
                   <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
                     문제 관리하기
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
+            <Card className="border-0 shadow-playful hover:shadow-playful-hover transition-all duration-300 hover:scale-105 bg-white/95 backdrop-blur-sm">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-quiz-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-8 h-8 text-quiz-accent" />
+                </div>
+                <CardTitle className="text-xl text-quiz-accent">전시용 대시보드</CardTitle>
+                <CardDescription>실시간 전시 화면 전용 대시보드</CardDescription>
+              </CardHeader>
+              <CardContent className="text-center">
+                <Link href="/admin/exhibition-dashboard" prefetch={false}>
+                  <Button className="w-full max-w-80 bg-gradient-to-r from-quiz-primary to-quiz-secondary hover:from-quiz-secondary hover:to-quiz-primary transition-all duration-300 rounded-xl shadow-playful hover:shadow-playful-hover">
+                    전시 화면 열기
                   </Button>
                 </Link>
               </CardContent>
