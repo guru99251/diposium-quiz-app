@@ -208,21 +208,31 @@ export default function ExhibitionDashboardPage() {
             <StatCard
               title="누적 만점자 / 참여자"
               description="한눈에 보는 핵심 지표"
-              icon={<Trophy className="w-5 h-5 text-quiz-primary" />}
+              icon={<Trophy className="w-5 h-5 text-white" />}
+              cardClassName="bg-gradient-to-br from-amber-400 via-orange-400 to-rose-500 text-white border border-transparent shadow-xl"
+              iconWrapperClassName="bg-white/20 shadow-none"
+              titleClassName="text-white"
+              descriptionClassName="text-white/80"
+              contentClassName="text-white"
             >
-              <div className="text-3xl font-bold text-quiz-primary">
+              <div className="text-3xl font-bold text-white">
                 {randomFiveStats.perfectCount.toLocaleString()} / {randomFiveStats.totalParticipants.toLocaleString()}
               </div>
-              <p className="text-sm text-muted-foreground">만점률 {formatRatio(randomFiveStats.perfectCount, randomFiveStats.totalParticipants)}%</p>
+              <p className="text-sm text-white/80">만점률 {formatRatio(randomFiveStats.perfectCount, randomFiveStats.totalParticipants)}%</p>
             </StatCard>
 
             <StatCard
               title="평균 점수"
               description="누적 응시 기준"
-              icon={<BarChart3 className="w-5 h-5 text-quiz-secondary" />}
+              icon={<BarChart3 className="w-5 h-5 text-white" />}
+              cardClassName="bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-500 text-white border border-transparent shadow-xl"
+              iconWrapperClassName="bg-white/15 shadow-none"
+              titleClassName="text-white"
+              descriptionClassName="text-white/80"
+              contentClassName="text-white"
             >
-              <div className="text-3xl font-bold text-quiz-secondary">{randomFiveStats.averageScore.toFixed(1)}점</div>
-              <p className="text-sm text-muted-foreground">집계 전체 평균</p>
+              <div className="text-3xl font-bold text-white">{randomFiveStats.averageScore.toFixed(1)}점</div>
+              <p className="text-sm text-white/80">집계 전체 평균</p>
             </StatCard>
 
             <StatCard
@@ -300,7 +310,7 @@ export default function ExhibitionDashboardPage() {
                       <motion.li
                         key={perfect.id}
                         layout
-                        className="flex items-center justify-between rounded-xl bg-slate-100 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm"
+                        className="flex items-center justify-between rounded-xl border border-white/50 bg-gradient-to-r from-amber-100 via-orange-100 to-rose-100 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm backdrop-blur-sm"
                       >
                         <span>{perfect.phone}</span>
                         <span className="text-xs text-slate-500">{formatTime(perfect.completed_at)}</span>
@@ -324,10 +334,15 @@ export default function ExhibitionDashboardPage() {
             <StatCard
               title="누적 최고 점수"
               description="최고 기록 보유자"
-              icon={<Award className="w-5 h-5 text-quiz-primary" />}
+              icon={<Award className="w-5 h-5 text-white" />}
+              cardClassName="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 text-white border border-transparent shadow-xl"
+              iconWrapperClassName="bg-white/20 shadow-none"
+              titleClassName="text-white"
+              descriptionClassName="text-white/80"
+              contentClassName="text-white"
             >
-              <div className="text-3xl font-bold text-quiz-primary">{unlimitedStats.highestScore.toLocaleString()}점</div>
-              <p className="text-sm text-muted-foreground">한계 없는 도전의 결과</p>
+              <div className="text-3xl font-bold text-white">{unlimitedStats.highestScore.toLocaleString()}점</div>
+              <p className="text-sm text-white/80">한계 없는 도전의 결과</p>
             </StatCard>
 
             <StatCard
@@ -376,7 +391,7 @@ export default function ExhibitionDashboardPage() {
                     {unlimitedStats.rankings.map((entry) => (
                       <li
                         key={`${entry.rank}-${entry.phone}`}
-                        className="flex items-center justify-between rounded-xl bg-slate-100 px-4 py-3 text-sm text-slate-700 shadow-sm"
+                        className="flex items-center justify-between rounded-xl border border-white/50 bg-gradient-to-r from-amber-100 via-orange-100 to-rose-100 px-4 py-3 text-sm text-slate-800 shadow-sm backdrop-blur-sm"
                       >
                         <span className="font-semibold">{entry.rank}위</span>
                         <div className="flex-1 px-4 text-center font-medium">{entry.phone}</div>
@@ -566,26 +581,48 @@ function StatCard({
   description,
   icon,
   children,
+  cardClassName,
+  iconWrapperClassName,
+  titleClassName,
+  descriptionClassName,
+  contentClassName,
 }: {
   title: string
   description: string
   icon?: ReactNode
   children: ReactNode
+  cardClassName?: string
+  iconWrapperClassName?: string
+  titleClassName?: string
+  descriptionClassName?: string
+  contentClassName?: string
 }) {
+  const cardClasses = ["border-white/30 bg-white/90 backdrop-blur shadow-playful", cardClassName]
+    .filter(Boolean)
+    .join(" ")
+  const iconClasses = [
+    "rounded-full bg-gradient-to-br from-indigo-100 via-sky-100 to-cyan-100 p-2 shadow-inner",
+    iconWrapperClassName,
+  ]
+    .filter(Boolean)
+    .join(" ")
+  const titleClasses = ["text-sm text-slate-600", titleClassName].filter(Boolean).join(" ")
+  const descriptionClasses = [descriptionClassName].filter(Boolean).join(" ")
+  const contentClasses = ["space-y-2 text-slate-700", contentClassName].filter(Boolean).join(" ")
+
   return (
-    <Card className="border-white/30 bg-white/90 backdrop-blur shadow-playful">
+    <Card className={cardClasses}>
       <CardHeader className="flex flex-row items-start justify-between pb-2">
         <div>
-          <CardTitle className="text-sm text-slate-600">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className={titleClasses}>{title}</CardTitle>
+          <CardDescription className={descriptionClasses}>{description}</CardDescription>
         </div>
-        {icon && <div className="rounded-full bg-slate-100 p-2 shadow-inner">{icon}</div>}
+        {icon && <div className={iconClasses}>{icon}</div>}
       </CardHeader>
-      <CardContent className="space-y-2 text-slate-700">{children}</CardContent>
+      <CardContent className={contentClasses}>{children}</CardContent>
     </Card>
   )
 }
-
 function EmptyState({ message }: { message: string }) {
   return (
     <div className="flex h-full min-h-[120px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white/70 px-6 py-8 text-center text-sm text-slate-500">
