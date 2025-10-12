@@ -30,6 +30,8 @@ export default function QuizStartPage() {
   const [phoneNumber, setPhoneNumber] = useState<string>("")
   const [mode, setMode] = useState<Mode>("random5")
   const [streak, setStreak] = useState<number>(0)
+  const [timeLeft, setTimeLeft] = useState<number>(30)
+  const [timerActive, setTimerActive] = useState<boolean>(false)
 
   const router = useRouter()
   const params = useSearchParams()
@@ -55,6 +57,7 @@ export default function QuizStartPage() {
       const shuffled = (data || []).slice().sort(() => 0.5 - Math.random())
       if (m === "random5") {
         setPool(shuffled.slice(0, 5))
+        setTimerActive(true) // Start timer for random5 mode
       } else {
         setPool(shuffled)
       }
@@ -65,6 +68,28 @@ export default function QuizStartPage() {
       router.push("/quiz")
     }
   }
+
+  // Timer countdown effect for random5 mode
+  useEffect(() => {
+    if (mode !== "random5" || !timerActive || isSubmitting) return
+
+    if (timeLeft <= 0) {
+      // Time's up - submit current answers
+      const finalAnswers = [...answers]
+      // Fill remaining unanswered questions with empty string
+      while (finalAnswers.length < pool.length) {
+        finalAnswers.push("")
+      }
+      submitRandom5(finalAnswers)
+      return
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1)
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [timeLeft, timerActive, mode, isSubmitting, answers, pool.length])
 
   const currentQuestion = pool[currentIndex]
   const progress = useMemo(() => (mode === "random5" ? ((currentIndex + 1) / Math.max(pool.length, 1)) * 100 : 0), [mode, currentIndex, pool.length])
@@ -110,6 +135,7 @@ export default function QuizStartPage() {
 
   const submitRandom5 = async (finalAnswers: string[]) => {
     setIsSubmitting(true)
+    setTimerActive(false) // Stop the timer
     try {
       const supabase = createClient()
 
@@ -226,6 +252,42 @@ export default function QuizStartPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-quiz-primary via-quiz-secondary to-quiz-accent p-4">
       <div className="max-w-2xl mx-auto pt-8">
+        {/* Timer Bar for random5 mode */}
+        {mode === "random5" && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 bg-white/10 rounded-lg p-4 backdrop-blur-sm"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <span className={`font-semibold ${timeLeft <= 10 ? "text-red-300" : "text-white"}`}>
+                남은 시간
+              </span>
+              <span className={`font-bold text-xl ${timeLeft <= 10 ? "animate-pulse text-red-300" : "text-white"}`}>
+                {timeLeft}초
+              </span>
+            </div>
+            <div className="relative">
+              <div
+                className={`h-4 rounded-full overflow-hidden ${
+                  timeLeft <= 10 ? "bg-red-900/40" : "bg-white/20"
+                }`}
+              >
+                <motion.div
+                  className={`h-full ${
+                    timeLeft <= 10 ? "bg-red-500 animate-pulse" : "bg-white"
+                  }`}
+                  style={{ width: `${(timeLeft / 30) * 100}%` }}
+                  animate={{
+                    width: `${(timeLeft / 30) * 100}%`
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* Progress / Streak */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
           {mode === "random5" ? (
